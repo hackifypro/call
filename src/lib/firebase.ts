@@ -21,12 +21,23 @@ export const app: FirebaseApp =
 export const auth: Auth = getAuth(app);
 export const db: Firestore = getFirestore(app);
 
-// Analytics runs safely only in browser environments
+// Analytics runs safely only in browser environments (SSR-safe)
+let analytics: Analytics | null = null;
+if (typeof window !== "undefined") {
+  isSupported().then((supported) => {
+    if (supported) {
+      analytics = getAnalytics(app);
+    }
+  });
+}
+
+export { analytics };
+
 export const getClientAnalytics = async (): Promise<Analytics | null> => {
   if (typeof window !== "undefined") {
     const supported = await isSupported();
     if (supported) {
-      return getAnalytics(app);
+      return analytics || getAnalytics(app);
     }
   }
   return null;
