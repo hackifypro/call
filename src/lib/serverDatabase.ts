@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 import {
   User,
   CompanionProfile,
@@ -38,37 +39,52 @@ import {
 } from './mockData';
 import { INDIAN_CITIES } from './geoData';
 
-const DATA_DIR = path.join(process.cwd(), '.data');
+const isServerless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+const DATA_DIR = isServerless ? path.join(os.tmpdir(), 'aura_db') : path.join(process.cwd(), '.data');
+
+// In-memory table cache to ensure zero crashes in serverless read-only environments
+const memoryTableStore = new Map<string, any>();
 
 function ensureDirectory() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+  } catch (err) {
+    // Read-only filesystem warning, memory cache will serve as fallback
   }
 }
 
 function readTable<T>(filename: string, defaultData: T): T {
+  if (memoryTableStore.has(filename)) {
+    return memoryTableStore.get(filename);
+  }
   ensureDirectory();
   const filePath = path.join(DATA_DIR, filename);
-  if (fs.existsSync(filePath)) {
-    try {
+  try {
+    if (fs.existsSync(filePath)) {
       const content = fs.readFileSync(filePath, 'utf-8');
-      return JSON.parse(content);
-    } catch {
-      return defaultData;
+      const parsed = JSON.parse(content);
+      memoryTableStore.set(filename, parsed);
+      return parsed;
     }
+  } catch (err) {
+    console.warn(`Could not read ${filename} from disk, using default:`, err);
   }
   // Initialize file with default data
+  memoryTableStore.set(filename, defaultData);
   writeTable(filename, defaultData);
   return defaultData;
 }
 
 function writeTable<T>(filename: string, data: T) {
+  memoryTableStore.set(filename, data);
   ensureDirectory();
   const filePath = path.join(DATA_DIR, filename);
   try {
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
   } catch (err) {
-    console.error(`Failed to write table ${filename}:`, err);
+    console.warn(`Failed to write table ${filename} to disk (preserved in memory):`, err);
   }
 }
 

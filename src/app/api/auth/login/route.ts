@@ -49,10 +49,10 @@ export async function POST(request: Request) {
     });
 
     return response;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Login error:', error);
     return NextResponse.json(
-      { success: false, error: 'An unexpected authentication error occurred.' },
+      { success: false, error: error?.message || 'An unexpected authentication error occurred.' },
       { status: 500 }
     );
   }

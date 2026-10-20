@@ -77,10 +77,10 @@ export async function POST(request: Request) {
     });
 
     return response;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Customer registration error:', error);
     return NextResponse.json(
-      { success: false, error: 'Internal registration server error.' },
+      { success: false, error: error?.message || 'Internal registration server error.' },
       { status: 500 }
     );
   }

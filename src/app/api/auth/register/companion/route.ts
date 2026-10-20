@@ -86,10 +86,10 @@ export async function POST(request: Request) {
     });
 
     return response;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Companion registration error:', error);
     return NextResponse.json(
-      { success: false, error: 'Internal companion registration error.' },
+      { success: false, error: error?.message || 'Internal companion registration error.' },
       { status: 500 }
     );
   }

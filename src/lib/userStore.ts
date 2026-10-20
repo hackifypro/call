@@ -1,44 +1,52 @@
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 import { User, UserRole, SessionUser } from './types';
 import { hashPassword, verifyPassword } from './auth';
 
-const DATA_DIR = path.join(process.cwd(), '.data');
+// In serverless environments (e.g. Vercel, AWS Lambda), process.cwd() is read-only.
+// os.tmpdir() provides an active writable filesystem buffer.
+const isServerless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+const DATA_DIR = isServerless ? path.join(os.tmpdir(), 'aura_users') : path.join(process.cwd(), '.data');
 const USERS_FILE = path.join(DATA_DIR, 'users.json');
 
 interface StoredUserRecord extends User {
   passwordHash: string;
 }
 
-// In-memory cache for fast lookup
+// In-memory cache for fast lookup and graceful fallback
 let memoryUsers: StoredUserRecord[] = [];
 let isInitialized = false;
 
 function ensureDataDirectory() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+  } catch (err) {
+    console.warn('Filesystem read-only or permission restricted. Operating in memory fallback mode.');
   }
 }
 
 function loadUsersFromDisk(): StoredUserRecord[] {
-  ensureDataDirectory();
-  if (fs.existsSync(USERS_FILE)) {
-    try {
+  try {
+    ensureDataDirectory();
+    if (fs.existsSync(USERS_FILE)) {
       const data = fs.readFileSync(USERS_FILE, 'utf-8');
       return JSON.parse(data);
-    } catch {
-      return [];
     }
+  } catch (err) {
+    console.warn('Could not read users from disk, using in-memory state:', err);
   }
   return [];
 }
 
 function saveUsersToDisk(users: StoredUserRecord[]) {
-  ensureDataDirectory();
   try {
+    ensureDataDirectory();
     fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf-8');
   } catch (err) {
-    console.error('Failed to persist user store:', err);
+    console.warn('Failed to persist users to disk (retained in memory cache):', err);
   }
 }
 
