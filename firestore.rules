@@ -1,0 +1,686 @@
+rules_version = '2';
+
+// ===============================================================
+// Assumed Data Model
+// ===============================================================
+//
+// 1. Collection: users
+//    Document ID: {userId} (matches Firebase Auth UID)
+//    Fields:
+//      - id: string (required, immutable) - Auth UID
+//      - email: string (required, valid email, max 255 chars)
+//      - phoneNumber: string (optional, max 30 chars)
+//      - phoneVerified: bool (optional)
+//      - fullName: string (required, 1-100 chars)
+//      - role: string (required, enum: ['customer', 'companion', 'admin', 'moderator'])
+//      - isActive: bool (required)
+//      - avatarUrl: string (optional, max 500 chars)
+//      - createdAt: string or timestamp (required, immutable)
+//
+// 2. Collection: companions
+//    Document ID: {companionId}
+//    Fields:
+//      - id: string (required, immutable, max 128 chars)
+//      - userId: string (required, immutable, max 128 chars) - Companion owner Auth UID
+//      - displayName: string (required, 1-100 chars)
+//      - legalNamePrivate: string (required, 1-150 chars)
+//      - age: number (required, 18-100)
+//      - gender: string (required, enum: ['Female', 'Male', 'Non-Binary'])
+//      - bio: string (required, max 2000 chars)
+//      - interests: list of strings (required, max 30 items)
+//      - languages: list of strings (required, max 20 items)
+//      - stateId: number (required)
+//      - stateName: string (required, max 100 chars)
+//      - stateSlug: string (required, max 100 chars)
+//      - cityId: number (required)
+//      - cityName: string (required, max 100 chars)
+//      - citySlug: string (required, max 100 chars)
+//      - supportedCities: list of strings (required, max 50 items)
+//      - primaryPhotoUrl: string (required, max 500 chars)
+//      - galleryPhotos: list of strings (required, max 20 items)
+//      - hourlyRate: number (required, >= 0, <= 1000000)
+//      - halfDayRate: number (optional, >= 0, <= 1000000)
+//      - fullDayRate: number (optional, >= 0, <= 1000000)
+//      - permittedDurations: list of numbers (required, max 10 items)
+//      - status: string (required, enum: ['draft', 'pending_verification', 'pending_approval', 'approved', 'rejected', 'suspended', 'deactivated'])
+//      - rejectionReason: string (optional, max 500 chars)
+//      - isAvailable: bool (required)
+//      - availabilitySchedule: list of maps (required, max 14 items)
+//      - averageRating: number (required, >= 0, <= 5)
+//      - reviewCount: number (required, >= 0)
+//      - totalRequests: number (required, >= 0)
+//      - acceptedBookings: number (required, >= 0)
+//      - completedBookings: number (required, >= 0)
+//      - cancelledBookings: number (required, >= 0)
+//      - rejectedRequests: number (required, >= 0)
+//      - grossEarnings: number (required, >= 0)
+//      - totalCommissionPaid: number (required, >= 0)
+//      - netEligibleEarnings: number (required, >= 0)
+//      - createdAt: string or timestamp (required, immutable)
+//      - updatedAt: string or timestamp (required)
+//
+// 3. Collection: bookings
+//    Document ID: {bookingId}
+//    Fields:
+//      - id: string (required, immutable, max 128 chars)
+//      - bookingRef: string (required, max 64 chars)
+//      - customerId: string (required, immutable, max 128 chars) - Customer Auth UID
+//      - customerName: string (required, max 100 chars)
+//      - customerPhone: string (optional, max 30 chars)
+//      - customerEmail: string (optional, max 255 chars)
+//      - companionId: string (required, immutable, max 128 chars) - Companion doc ID or UID
+//      - companionDisplayName: string (required, max 100 chars)
+//      - companionPhone: string (optional, max 30 chars)
+//      - companionPhotoUrl: string (required, max 500 chars)
+//      - bookingDate: string (required, max 50 chars)
+//      - startTime: string (required, max 20 chars)
+//      - durationHours: number (required, > 0, <= 24)
+//      - cityName: string (required, max 100 chars)
+//      - meetupLocation: string (required, max 300 chars)
+//      - occasionType: string (required, max 200 chars)
+//      - specialNotes: string (optional, max 1000 chars)
+//      - priceBreakdown: map (required)
+//      - status: string (required, enum: ['pending_payment', 'payment_authorized', 'pending_acceptance', 'accepted', 'rejected', 'confirmed', 'in_progress', 'completed', 'cancelled', 'refund_pending', 'refunded'])
+//      - paymentId: string (optional, max 128 chars)
+//      - paymentMethod: string (optional, max 100 chars)
+//      - refundId: string (optional, max 128 chars)
+//      - creditUsedId: string (optional, max 128 chars)
+//      - acceptedAt: string (optional, max 50 chars)
+//      - completedAt: string (optional, max 50 chars)
+//      - cancelledAt: string (optional, max 50 chars)
+//      - cancellationReason: string (optional, max 1000 chars)
+//      - cancelledBy: string (optional, enum: ['customer', 'companion', 'admin', 'system'])
+//      - hasReview: bool (required)
+//      - createdAt: string or timestamp (required, immutable)
+//      - updatedAt: string or timestamp (required)
+//
+// 4. Collection: verifications
+//    Document ID: {verificationId}
+//    Fields:
+//      - id: string (required, immutable, max 128 chars)
+//      - userId: string (required, immutable, max 128 chars)
+//      - profileId: string (required, max 128 chars)
+//      - documentType: string (required, enum: ['Aadhaar', 'Passport', 'Voter ID', 'Driving License'])
+//      - documentNumberMasked: string (required, max 50 chars)
+//      - documentImageUrl: string (required, max 500 chars)
+//      - selfieImageUrl: string (required, max 500 chars)
+//      - age: number (required, 18-100)
+//      - isAdultVerified: bool (required)
+//      - status: string (required, enum: ['pending', 'approved', 'rejected'])
+//      - reviewerNotes: string (optional, max 1000 chars)
+//      - reviewedAt: string (optional, max 50 chars)
+//      - createdAt: string or timestamp (required, immutable)
+//
+// 5. Collection: reviews
+//    Document ID: {reviewId}
+//    Fields:
+//      - id: string (required, immutable, max 128 chars)
+//      - bookingId: string (required, immutable, max 128 chars)
+//      - bookingRef: string (required, max 64 chars)
+//      - customerId: string (required, immutable, max 128 chars)
+//      - customerName: string (required, max 100 chars)
+//      - companionId: string (required, immutable, max 128 chars)
+//      - companionDisplayName: string (required, max 100 chars)
+//      - rating: number (required, integer 1 to 5)
+//      - comment: string (required, 1-2000 chars)
+//      - isVerified: bool (required)
+//      - isFlagged: bool (required)
+//      - createdAt: string or timestamp (required, immutable)
+//
+// 6. Collection: commission_ledger
+//    Document ID: {ledgerId}
+//    Fields:
+//      - id: string (required, immutable, max 128 chars)
+//      - bookingId: string (required, max 128 chars)
+//      - bookingRef: string (required, max 64 chars)
+//      - transactionType: string (required, enum: ['commission_credit', 'commission_refund', 'registration_fee', 'subscription_fee'])
+//      - amount: number (required)
+//      - ratePercentage: number (required, >= 0, <= 100)
+//      - balanceAfter: number (required)
+//      - notes: string (required, max 1000 chars)
+//      - createdAt: string or timestamp (required, immutable)
+//
+// 7. Collection: booking_credits
+//    Document ID: {creditId}
+//    Fields:
+//      - id: string (required, immutable, max 128 chars)
+//      - userId: string (required, max 128 chars)
+//      - creditAmount: number (required, >= 0)
+//      - originalBookingId: string (required, max 128 chars)
+//      - reason: string (required, max 1000 chars)
+//      - status: string (required, enum: ['available', 'redeemed', 'expired'])
+//      - expiresAt: string (required, max 50 chars)
+//      - createdAt: string or timestamp (required, immutable)
+//
+// 8. Collection: payouts
+//    Document ID: {payoutId}
+//    Fields:
+//      - id: string (required, immutable, max 128 chars)
+//      - companionId: string (required, immutable, max 128 chars)
+//      - companionDisplayName: string (required, max 100 chars)
+//      - amount: number (required, > 0, <= 10000000)
+//      - bankAccountMasked: string (required, max 100 chars)
+//      - ifscCode: string (required, max 30 chars)
+//      - referenceId: string (optional, max 128 chars)
+//      - status: string (required, enum: ['pending', 'processing', 'completed', 'rejected'])
+//      - requestedAt: string or timestamp (required, immutable)
+//      - paidAt: string or timestamp (optional)
+//
+// 9. Collection: feature_settings
+//    Document ID: {docId} (e.g. 'general')
+//    Fields:
+//      - platformCommissionRate: number (required, 0-100)
+//      - registrationFee: number (required, >= 0)
+//      - isRegistrationFree: bool (required)
+//      - autoApproveCompanions: bool (required)
+//      - maintenanceMode: bool (required)
+//      - minBookingDuration: number (required, 1-24)
+//      - maxBookingDuration: number (required, 1-24)
+//      - allowInstantBooking: bool (required)
+//      - enableReviews: bool (required)
+//      - enableReplacementCredit: bool (required)
+//      - platformContactEmail: string (required, max 255 chars)
+//      - emergencyHelplineNumber: string (required, max 50 chars)
+//
+// 10. Collection: audit_logs
+//     Document ID: {logId}
+//     Fields:
+//       - id: string (required, immutable, max 128 chars)
+//       - adminEmail: string (required, max 255 chars)
+//       - action: string (required, max 100 chars)
+//       - targetType: string (required, max 100 chars)
+//       - targetId: string (required, max 128 chars)
+//       - details: string (required, max 2000 chars)
+//       - timestamp: string or timestamp (required, immutable)
+//
+// ===============================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Global Default Deny
+    // ===============================================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // ===============================================================
+    // Core Helper Functions
+    // ===============================================================
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && (
+        ('role' in request.auth.token && request.auth.token.role == 'admin') ||
+        (
+          exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'
+        )
+      );
+    }
+
+    // Resolves if the current user is the owner of a companion document by ID
+    function isCompanionOwner(compDocId) {
+      return isAuthenticated() &&
+        compDocId is string &&
+        exists(/databases/$(database)/documents/companions/$(compDocId)) &&
+        get(/databases/$(database)/documents/companions/$(compDocId)).data.userId == request.auth.uid;
+    }
+
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+
+    function hasOnlyAllowedFields(fields) {
+      return request.resource.data.keys().hasOnly(fields);
+    }
+
+    function areImmutableFieldsUnchanged(fields) {
+      return !request.resource.data.diff(resource.data).affectedKeys().hasAny(fields);
+    }
+
+    function isValidEmail(email) {
+      return email is string &&
+        email.size() >= 3 &&
+        email.size() <= 255 &&
+        email.matches('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
+    }
+
+    function isValidTimestampOrString(val) {
+      return (val is string && val.size() <= 50) || val is timestamp;
+    }
+
+    // ===============================================================
+    // Domain Validator Functions
+    // ===============================================================
+
+    // --- 1. User Validation ---
+    function isValidUser(data) {
+      return hasOnlyAllowedFields(['id', 'email', 'phoneNumber', 'phoneVerified', 'fullName', 'role', 'isActive', 'avatarUrl', 'createdAt']) &&
+        hasRequiredFields(['id', 'email', 'fullName', 'role', 'isActive', 'createdAt']) &&
+        data.id is string && data.id.size() >= 1 && data.id.size() <= 128 &&
+        isValidEmail(data.email) &&
+        (!('phoneNumber' in data) || (data.phoneNumber is string && data.phoneNumber.size() <= 30)) &&
+        (!('phoneVerified' in data) || (data.phoneVerified is bool)) &&
+        data.fullName is string && data.fullName.size() >= 1 && data.fullName.size() <= 100 &&
+        data.role is string && data.role in ['customer', 'companion', 'admin', 'moderator'] &&
+        data.isActive is bool &&
+        (!('avatarUrl' in data) || (data.avatarUrl is string && data.avatarUrl.size() <= 500)) &&
+        isValidTimestampOrString(data.createdAt);
+    }
+
+    // --- 2. Companion Profile Validation ---
+    function isValidCompanion(data) {
+      return hasOnlyAllowedFields([
+          'id', 'userId', 'displayName', 'legalNamePrivate', 'age', 'gender', 'bio',
+          'interests', 'languages', 'stateId', 'stateName', 'stateSlug', 'cityId',
+          'cityName', 'citySlug', 'supportedCities', 'primaryPhotoUrl', 'galleryPhotos',
+          'hourlyRate', 'halfDayRate', 'fullDayRate', 'permittedDurations', 'status',
+          'rejectionReason', 'isAvailable', 'availabilitySchedule', 'averageRating',
+          'reviewCount', 'totalRequests', 'acceptedBookings', 'completedBookings',
+          'cancelledBookings', 'rejectedRequests', 'grossEarnings', 'totalCommissionPaid',
+          'netEligibleEarnings', 'createdAt', 'updatedAt'
+        ]) &&
+        hasRequiredFields([
+          'id', 'userId', 'displayName', 'legalNamePrivate', 'age', 'gender', 'bio',
+          'interests', 'languages', 'stateId', 'stateName', 'stateSlug', 'cityId',
+          'cityName', 'citySlug', 'supportedCities', 'primaryPhotoUrl', 'galleryPhotos',
+          'hourlyRate', 'permittedDurations', 'status', 'isAvailable', 'availabilitySchedule',
+          'averageRating', 'reviewCount', 'totalRequests', 'acceptedBookings',
+          'completedBookings', 'cancelledBookings', 'rejectedRequests', 'grossEarnings',
+          'totalCommissionPaid', 'netEligibleEarnings', 'createdAt', 'updatedAt'
+        ]) &&
+        data.id is string && data.id.size() >= 1 && data.id.size() <= 128 &&
+        data.userId is string && data.userId.size() >= 1 && data.userId.size() <= 128 &&
+        data.displayName is string && data.displayName.size() >= 1 && data.displayName.size() <= 100 &&
+        data.legalNamePrivate is string && data.legalNamePrivate.size() >= 1 && data.legalNamePrivate.size() <= 150 &&
+        data.age is number && data.age >= 18 && data.age <= 100 &&
+        data.gender is string && data.gender in ['Female', 'Male', 'Non-Binary'] &&
+        data.bio is string && data.bio.size() <= 2000 &&
+        data.interests is list && data.interests.size() <= 30 &&
+        data.languages is list && data.languages.size() <= 20 &&
+        data.stateId is number && data.stateName is string && data.stateName.size() <= 100 && data.stateSlug is string && data.stateSlug.size() <= 100 &&
+        data.cityId is number && data.cityName is string && data.cityName.size() <= 100 && data.citySlug is string && data.citySlug.size() <= 100 &&
+        data.supportedCities is list && data.supportedCities.size() <= 50 &&
+        data.primaryPhotoUrl is string && data.primaryPhotoUrl.size() <= 500 &&
+        data.galleryPhotos is list && data.galleryPhotos.size() <= 20 &&
+        data.hourlyRate is number && data.hourlyRate >= 0 && data.hourlyRate <= 1000000 &&
+        (!('halfDayRate' in data) || (data.halfDayRate is number && data.halfDayRate >= 0 && data.halfDayRate <= 1000000)) &&
+        (!('fullDayRate' in data) || (data.fullDayRate is number && data.fullDayRate >= 0 && data.fullDayRate <= 1000000)) &&
+        data.permittedDurations is list && data.permittedDurations.size() <= 10 &&
+        data.status is string && data.status in ['draft', 'pending_verification', 'pending_approval', 'approved', 'rejected', 'suspended', 'deactivated'] &&
+        (!('rejectionReason' in data) || (data.rejectionReason is string && data.rejectionReason.size() <= 500)) &&
+        data.isAvailable is bool &&
+        data.availabilitySchedule is list && data.availabilitySchedule.size() <= 14 &&
+        data.averageRating is number && data.averageRating >= 0 && data.averageRating <= 5 &&
+        data.reviewCount is number && data.reviewCount >= 0 &&
+        data.totalRequests is number && data.totalRequests >= 0 &&
+        data.acceptedBookings is number && data.acceptedBookings >= 0 &&
+        data.completedBookings is number && data.completedBookings >= 0 &&
+        data.cancelledBookings is number && data.cancelledBookings >= 0 &&
+        data.rejectedRequests is number && data.rejectedRequests >= 0 &&
+        data.grossEarnings is number && data.grossEarnings >= 0 &&
+        data.totalCommissionPaid is number && data.totalCommissionPaid >= 0 &&
+        data.netEligibleEarnings is number && data.netEligibleEarnings >= 0 &&
+        isValidTimestampOrString(data.createdAt) &&
+        isValidTimestampOrString(data.updatedAt);
+    }
+
+    // --- 3. Booking Validation ---
+    function isValidBooking(data) {
+      return hasOnlyAllowedFields([
+          'id', 'bookingRef', 'customerId', 'customerName', 'customerPhone', 'customerEmail',
+          'companionId', 'companionDisplayName', 'companionPhone', 'companionPhotoUrl',
+          'bookingDate', 'startTime', 'durationHours', 'cityName', 'meetupLocation',
+          'occasionType', 'specialNotes', 'priceBreakdown', 'status', 'paymentId',
+          'paymentMethod', 'refundId', 'creditUsedId', 'acceptedAt', 'completedAt',
+          'cancelledAt', 'cancellationReason', 'cancelledBy', 'hasReview', 'createdAt', 'updatedAt'
+        ]) &&
+        hasRequiredFields([
+          'id', 'bookingRef', 'customerId', 'customerName', 'companionId', 'companionDisplayName',
+          'companionPhotoUrl', 'bookingDate', 'startTime', 'durationHours', 'cityName',
+          'meetupLocation', 'occasionType', 'priceBreakdown', 'status', 'hasReview',
+          'createdAt', 'updatedAt'
+        ]) &&
+        data.id is string && data.id.size() >= 1 && data.id.size() <= 128 &&
+        data.bookingRef is string && data.bookingRef.size() >= 1 && data.bookingRef.size() <= 64 &&
+        data.customerId is string && data.customerId.size() >= 1 && data.customerId.size() <= 128 &&
+        data.customerName is string && data.customerName.size() >= 1 && data.customerName.size() <= 100 &&
+        (!('customerPhone' in data) || (data.customerPhone is string && data.customerPhone.size() <= 30)) &&
+        (!('customerEmail' in data) || (data.customerEmail is string && data.customerEmail.size() <= 255)) &&
+        data.companionId is string && data.companionId.size() >= 1 && data.companionId.size() <= 128 &&
+        data.companionDisplayName is string && data.companionDisplayName.size() >= 1 && data.companionDisplayName.size() <= 100 &&
+        (!('companionPhone' in data) || (data.companionPhone is string && data.companionPhone.size() <= 30)) &&
+        data.companionPhotoUrl is string && data.companionPhotoUrl.size() <= 500 &&
+        data.bookingDate is string && data.bookingDate.size() <= 50 &&
+        data.startTime is string && data.startTime.size() <= 20 &&
+        data.durationHours is number && data.durationHours > 0 && data.durationHours <= 24 &&
+        data.cityName is string && data.cityName.size() >= 1 && data.cityName.size() <= 100 &&
+        data.meetupLocation is string && data.meetupLocation.size() >= 1 && data.meetupLocation.size() <= 300 &&
+        data.occasionType is string && data.occasionType.size() >= 1 && data.occasionType.size() <= 200 &&
+        (!('specialNotes' in data) || (data.specialNotes is string && data.specialNotes.size() <= 1000)) &&
+        data.priceBreakdown is map &&
+        data.priceBreakdown.keys().hasAll(['baseAmount', 'durationHours', 'platformCommissionRate', 'platformCommissionAmount', 'taxAmount', 'totalPayableByCustomer', 'netCompanionAmount', 'finalPaidByCustomer']) &&
+        data.priceBreakdown.baseAmount is number &&
+        data.priceBreakdown.durationHours is number &&
+        data.priceBreakdown.platformCommissionRate is number &&
+        data.priceBreakdown.platformCommissionAmount is number &&
+        data.priceBreakdown.taxAmount is number &&
+        data.priceBreakdown.totalPayableByCustomer is number &&
+        data.priceBreakdown.netCompanionAmount is number &&
+        data.priceBreakdown.finalPaidByCustomer is number &&
+        data.status is string && data.status in ['pending_payment', 'payment_authorized', 'pending_acceptance', 'accepted', 'rejected', 'confirmed', 'in_progress', 'completed', 'cancelled', 'refund_pending', 'refunded'] &&
+        (!('paymentId' in data) || (data.paymentId is string && data.paymentId.size() <= 128)) &&
+        (!('paymentMethod' in data) || (data.paymentMethod is string && data.paymentMethod.size() <= 100)) &&
+        (!('refundId' in data) || (data.refundId is string && data.refundId.size() <= 128)) &&
+        (!('creditUsedId' in data) || (data.creditUsedId is string && data.creditUsedId.size() <= 128)) &&
+        (!('acceptedAt' in data) || (data.acceptedAt is string && data.acceptedAt.size() <= 50)) &&
+        (!('completedAt' in data) || (data.completedAt is string && data.completedAt.size() <= 50)) &&
+        (!('cancelledAt' in data) || (data.cancelledAt is string && data.cancelledAt.size() <= 50)) &&
+        (!('cancellationReason' in data) || (data.cancellationReason is string && data.cancellationReason.size() <= 1000)) &&
+        (!('cancelledBy' in data) || (data.cancelledBy in ['customer', 'companion', 'admin', 'system'])) &&
+        data.hasReview is bool &&
+        isValidTimestampOrString(data.createdAt) &&
+        isValidTimestampOrString(data.updatedAt);
+    }
+
+    // --- 4. Verification Record Validation ---
+    function isValidVerification(data) {
+      return hasOnlyAllowedFields([
+          'id', 'userId', 'profileId', 'documentType', 'documentNumberMasked',
+          'documentImageUrl', 'selfieImageUrl', 'age', 'isAdultVerified', 'status',
+          'reviewerNotes', 'reviewedAt', 'createdAt'
+        ]) &&
+        hasRequiredFields([
+          'id', 'userId', 'profileId', 'documentType', 'documentNumberMasked',
+          'documentImageUrl', 'selfieImageUrl', 'age', 'isAdultVerified', 'status', 'createdAt'
+        ]) &&
+        data.id is string && data.id.size() >= 1 && data.id.size() <= 128 &&
+        data.userId is string && data.userId.size() >= 1 && data.userId.size() <= 128 &&
+        data.profileId is string && data.profileId.size() >= 1 && data.profileId.size() <= 128 &&
+        data.documentType is string && data.documentType in ['Aadhaar', 'Passport', 'Voter ID', 'Driving License'] &&
+        data.documentNumberMasked is string && data.documentNumberMasked.size() >= 1 && data.documentNumberMasked.size() <= 50 &&
+        data.documentImageUrl is string && data.documentImageUrl.size() <= 500 &&
+        data.selfieImageUrl is string && data.selfieImageUrl.size() <= 500 &&
+        data.age is number && data.age >= 18 && data.age <= 100 &&
+        data.isAdultVerified is bool &&
+        data.status is string && data.status in ['pending', 'approved', 'rejected'] &&
+        (!('reviewerNotes' in data) || (data.reviewerNotes is string && data.reviewerNotes.size() <= 1000)) &&
+        (!('reviewedAt' in data) || (data.reviewedAt is string && data.reviewedAt.size() <= 50)) &&
+        isValidTimestampOrString(data.createdAt);
+    }
+
+    // --- 5. Review Record Validation ---
+    function isValidReview(data) {
+      return hasOnlyAllowedFields([
+          'id', 'bookingId', 'bookingRef', 'customerId', 'customerName',
+          'companionId', 'companionDisplayName', 'rating', 'comment',
+          'isVerified', 'isFlagged', 'createdAt'
+        ]) &&
+        hasRequiredFields([
+          'id', 'bookingId', 'bookingRef', 'customerId', 'customerName',
+          'companionId', 'companionDisplayName', 'rating', 'comment',
+          'isVerified', 'isFlagged', 'createdAt'
+        ]) &&
+        data.id is string && data.id.size() >= 1 && data.id.size() <= 128 &&
+        data.bookingId is string && data.bookingId.size() >= 1 && data.bookingId.size() <= 128 &&
+        data.bookingRef is string && data.bookingRef.size() >= 1 && data.bookingRef.size() <= 64 &&
+        data.customerId is string && data.customerId.size() >= 1 && data.customerId.size() <= 128 &&
+        data.customerName is string && data.customerName.size() >= 1 && data.customerName.size() <= 100 &&
+        data.companionId is string && data.companionId.size() >= 1 && data.companionId.size() <= 128 &&
+        data.companionDisplayName is string && data.companionDisplayName.size() >= 1 && data.companionDisplayName.size() <= 100 &&
+        data.rating is number && data.rating >= 1 && data.rating <= 5 &&
+        data.comment is string && data.comment.size() >= 1 && data.comment.size() <= 2000 &&
+        data.isVerified is bool &&
+        data.isFlagged is bool &&
+        isValidTimestampOrString(data.createdAt);
+    }
+
+    // --- 6. Commission Ledger Validation ---
+    function isValidCommissionLedger(data) {
+      return hasOnlyAllowedFields(['id', 'bookingId', 'bookingRef', 'transactionType', 'amount', 'ratePercentage', 'balanceAfter', 'notes', 'createdAt']) &&
+        hasRequiredFields(['id', 'bookingId', 'bookingRef', 'transactionType', 'amount', 'ratePercentage', 'balanceAfter', 'notes', 'createdAt']) &&
+        data.id is string && data.id.size() >= 1 && data.id.size() <= 128 &&
+        data.bookingId is string && data.bookingId.size() >= 1 && data.bookingId.size() <= 128 &&
+        data.bookingRef is string && data.bookingRef.size() >= 1 && data.bookingRef.size() <= 64 &&
+        data.transactionType is string && data.transactionType in ['commission_credit', 'commission_refund', 'registration_fee', 'subscription_fee'] &&
+        data.amount is number &&
+        data.ratePercentage is number && data.ratePercentage >= 0 && data.ratePercentage <= 100 &&
+        data.balanceAfter is number &&
+        data.notes is string && data.notes.size() <= 1000 &&
+        isValidTimestampOrString(data.createdAt);
+    }
+
+    // --- 7. Booking Credit Validation ---
+    function isValidBookingCredit(data) {
+      return hasOnlyAllowedFields(['id', 'userId', 'creditAmount', 'originalBookingId', 'reason', 'status', 'expiresAt', 'createdAt']) &&
+        hasRequiredFields(['id', 'userId', 'creditAmount', 'originalBookingId', 'reason', 'status', 'expiresAt', 'createdAt']) &&
+        data.id is string && data.id.size() >= 1 && data.id.size() <= 128 &&
+        data.userId is string && data.userId.size() >= 1 && data.userId.size() <= 128 &&
+        data.creditAmount is number && data.creditAmount >= 0 &&
+        data.originalBookingId is string && data.originalBookingId.size() >= 1 && data.originalBookingId.size() <= 128 &&
+        data.reason is string && data.reason.size() <= 1000 &&
+        data.status is string && data.status in ['available', 'redeemed', 'expired'] &&
+        data.expiresAt is string && data.expiresAt.size() <= 50 &&
+        isValidTimestampOrString(data.createdAt);
+    }
+
+    // --- 8. Payout Record Validation ---
+    function isValidPayout(data) {
+      return hasOnlyAllowedFields(['id', 'companionId', 'companionDisplayName', 'amount', 'bankAccountMasked', 'ifscCode', 'referenceId', 'status', 'requestedAt', 'paidAt']) &&
+        hasRequiredFields(['id', 'companionId', 'companionDisplayName', 'amount', 'bankAccountMasked', 'ifscCode', 'status', 'requestedAt']) &&
+        data.id is string && data.id.size() >= 1 && data.id.size() <= 128 &&
+        data.companionId is string && data.companionId.size() >= 1 && data.companionId.size() <= 128 &&
+        data.companionDisplayName is string && data.companionDisplayName.size() >= 1 && data.companionDisplayName.size() <= 100 &&
+        data.amount is number && data.amount > 0 && data.amount <= 10000000 &&
+        data.bankAccountMasked is string && data.bankAccountMasked.size() >= 1 && data.bankAccountMasked.size() <= 100 &&
+        data.ifscCode is string && data.ifscCode.size() >= 1 && data.ifscCode.size() <= 30 &&
+        (!('referenceId' in data) || (data.referenceId is string && data.referenceId.size() <= 128)) &&
+        data.status is string && data.status in ['pending', 'processing', 'completed', 'rejected'] &&
+        isValidTimestampOrString(data.requestedAt) &&
+        (!('paidAt' in data) || isValidTimestampOrString(data.paidAt));
+    }
+
+    // --- 9. Feature Settings Validation ---
+    function isValidFeatureSettings(data) {
+      return hasOnlyAllowedFields([
+          'platformCommissionRate', 'registrationFee', 'isRegistrationFree', 'autoApproveCompanions',
+          'maintenanceMode', 'minBookingDuration', 'maxBookingDuration', 'allowInstantBooking',
+          'enableReviews', 'enableReplacementCredit', 'platformContactEmail', 'emergencyHelplineNumber'
+        ]) &&
+        hasRequiredFields([
+          'platformCommissionRate', 'registrationFee', 'isRegistrationFree', 'autoApproveCompanions',
+          'maintenanceMode', 'minBookingDuration', 'maxBookingDuration', 'allowInstantBooking',
+          'enableReviews', 'enableReplacementCredit', 'platformContactEmail', 'emergencyHelplineNumber'
+        ]) &&
+        data.platformCommissionRate is number && data.platformCommissionRate >= 0 && data.platformCommissionRate <= 100 &&
+        data.registrationFee is number && data.registrationFee >= 0 &&
+        data.isRegistrationFree is bool &&
+        data.autoApproveCompanions is bool &&
+        data.maintenanceMode is bool &&
+        data.minBookingDuration is number && data.minBookingDuration >= 1 && data.minBookingDuration <= 24 &&
+        data.maxBookingDuration is number && data.maxBookingDuration >= 1 && data.maxBookingDuration <= 24 &&
+        data.allowInstantBooking is bool &&
+        data.enableReviews is bool &&
+        data.enableReplacementCredit is bool &&
+        isValidEmail(data.platformContactEmail) &&
+        data.emergencyHelplineNumber is string && data.emergencyHelplineNumber.size() >= 1 && data.emergencyHelplineNumber.size() <= 50;
+    }
+
+    // --- 10. Audit Log Validation ---
+    function isValidAuditLog(data) {
+      return hasOnlyAllowedFields(['id', 'adminEmail', 'action', 'targetType', 'targetId', 'details', 'timestamp']) &&
+        hasRequiredFields(['id', 'adminEmail', 'action', 'targetType', 'targetId', 'details', 'timestamp']) &&
+        data.id is string && data.id.size() >= 1 && data.id.size() <= 128 &&
+        isValidEmail(data.adminEmail) &&
+        data.action is string && data.action.size() >= 1 && data.action.size() <= 100 &&
+        data.targetType is string && data.targetType.size() >= 1 && data.targetType.size() <= 100 &&
+        data.targetId is string && data.targetId.size() >= 1 && data.targetId.size() <= 128 &&
+        data.details is string && data.details.size() <= 2000 &&
+        isValidTimestampOrString(data.timestamp);
+    }
+
+    // ===============================================================
+    // Collection Rules
+    // ===============================================================
+
+    // 1. `users/{userId}`: User profile records
+    match /users/{userId} {
+      allow read: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+      allow create: if isAuthenticated() &&
+        request.auth.uid == userId &&
+        request.resource.data.id == request.auth.uid &&
+        isValidUser(request.resource.data) &&
+        (isAdmin() || request.resource.data.role in ['customer', 'companion']);
+      allow update: if isAuthenticated() &&
+        (request.auth.uid == userId || isAdmin()) &&
+        isValidUser(request.resource.data) &&
+        areImmutableFieldsUnchanged(['id', 'createdAt']) &&
+        (isAdmin() || request.resource.data.role == resource.data.role);
+      allow delete: if isAdmin();
+    }
+
+    // 2. `companions/{companionId}`: Verified companion listings
+    match /companions/{companionId} {
+      allow read: if resource.data.status == 'approved' ||
+        (isAuthenticated() && (request.auth.uid == resource.data.userId || isAdmin()));
+      allow create: if isAuthenticated() &&
+        request.resource.data.userId == request.auth.uid &&
+        isValidCompanion(request.resource.data) &&
+        (isAdmin() || (
+          request.resource.data.status in ['draft', 'pending_verification', 'pending_approval'] &&
+          request.resource.data.averageRating == 0 &&
+          request.resource.data.reviewCount == 0 &&
+          request.resource.data.grossEarnings == 0 &&
+          request.resource.data.totalCommissionPaid == 0 &&
+          request.resource.data.netEligibleEarnings == 0
+        ));
+      allow update: if isAuthenticated() &&
+        (request.auth.uid == resource.data.userId || isAdmin()) &&
+        isValidCompanion(request.resource.data) &&
+        areImmutableFieldsUnchanged(['id', 'userId', 'createdAt']) &&
+        (isAdmin() || (
+          (request.resource.data.status == resource.data.status || (resource.data.status == 'draft' && request.resource.data.status == 'pending_approval')) &&
+          areImmutableFieldsUnchanged([
+            'averageRating', 'reviewCount', 'totalRequests', 'acceptedBookings',
+            'completedBookings', 'cancelledBookings', 'rejectedRequests',
+            'grossEarnings', 'totalCommissionPaid', 'netEligibleEarnings'
+          ])
+        ));
+      allow delete: if isAdmin();
+    }
+
+    // 3. `bookings/{bookingId}`: Marketplace companion booking agreements
+    match /bookings/{bookingId} {
+      allow read: if isAuthenticated() && (
+        request.auth.uid == resource.data.customerId ||
+        request.auth.uid == resource.data.companionId ||
+        isCompanionOwner(resource.data.companionId) ||
+        isAdmin()
+      );
+      allow create: if isAuthenticated() &&
+        request.resource.data.customerId == request.auth.uid &&
+        isValidBooking(request.resource.data);
+      allow update: if isAuthenticated() && (
+          request.auth.uid == resource.data.customerId ||
+          request.auth.uid == resource.data.companionId ||
+          isCompanionOwner(resource.data.companionId) ||
+          isAdmin()
+        ) &&
+        isValidBooking(request.resource.data) &&
+        areImmutableFieldsUnchanged(['id', 'customerId', 'companionId', 'createdAt']);
+      allow delete: if isAdmin();
+    }
+
+    // 4. `verifications/{verificationId}`: 18+ Adult Identity verification records
+    match /verifications/{verificationId} {
+      allow read: if isAuthenticated() && (request.auth.uid == resource.data.userId || isAdmin());
+      allow create: if isAuthenticated() &&
+        request.resource.data.userId == request.auth.uid &&
+        isValidVerification(request.resource.data) &&
+        (isAdmin() || (request.resource.data.status == 'pending' && request.resource.data.isAdultVerified == false));
+      allow update: if isAdmin() &&
+        isValidVerification(request.resource.data) &&
+        areImmutableFieldsUnchanged(['id', 'userId', 'createdAt']);
+      allow delete: if isAdmin();
+    }
+
+    // 5. `reviews/{reviewId}`: Customer reviews for completed bookings
+    match /reviews/{reviewId} {
+      allow read: if resource.data.isFlagged == false || isAdmin();
+      allow create: if isAuthenticated() &&
+        request.resource.data.customerId == request.auth.uid &&
+        isValidReview(request.resource.data) &&
+        (isAdmin() || request.resource.data.isFlagged == false);
+      allow update: if isAdmin() &&
+        isValidReview(request.resource.data) &&
+        areImmutableFieldsUnchanged(['id', 'bookingId', 'customerId', 'companionId', 'createdAt']);
+      allow delete: if isAdmin();
+    }
+
+    // 6. `commission_ledger/{ledgerId}`: Platform revenue & fee tracking
+    match /commission_ledger/{ledgerId} {
+      allow read: if isAdmin();
+      allow create: if isAdmin() && isValidCommissionLedger(request.resource.data);
+      allow update: if isAdmin() &&
+        isValidCommissionLedger(request.resource.data) &&
+        areImmutableFieldsUnchanged(['id', 'bookingId', 'createdAt']);
+      allow delete: if isAdmin();
+    }
+
+    // 7. `booking_credits/{creditId}`: Replacement booking credits wallet
+    match /booking_credits/{creditId} {
+      allow read: if isAuthenticated() && (request.auth.uid == resource.data.userId || isAdmin());
+      allow create: if isAdmin() && isValidBookingCredit(request.resource.data);
+      allow update: if isAdmin() &&
+        isValidBookingCredit(request.resource.data) &&
+        areImmutableFieldsUnchanged(['id', 'userId', 'createdAt']);
+      allow delete: if isAdmin();
+    }
+
+    // 8. `payouts/{payoutId}`: Companion banking disbursement requests
+    match /payouts/{payoutId} {
+      allow read: if isAuthenticated() && (
+        request.auth.uid == resource.data.companionId ||
+        isCompanionOwner(resource.data.companionId) ||
+        isAdmin()
+      );
+      allow create: if isAuthenticated() && (
+          request.resource.data.companionId == request.auth.uid ||
+          isCompanionOwner(request.resource.data.companionId) ||
+          isAdmin()
+        ) &&
+        isValidPayout(request.resource.data) &&
+        (isAdmin() || request.resource.data.status == 'pending');
+      allow update: if isAdmin() &&
+        isValidPayout(request.resource.data) &&
+        areImmutableFieldsUnchanged(['id', 'companionId', 'requestedAt']);
+      allow delete: if isAdmin();
+    }
+
+    // 9. `feature_settings/{docId}`: Platform-wide configurations
+    match /feature_settings/{docId} {
+      allow read: if true;
+      allow create, update: if isAdmin() && isValidFeatureSettings(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    // 10. `audit_logs/{logId}`: Compliance and administrative activity log
+    match /audit_logs/{logId} {
+      allow read: if isAdmin();
+      allow create: if isAdmin() && isValidAuditLog(request.resource.data);
+      allow update: if isAdmin() &&
+        isValidAuditLog(request.resource.data) &&
+        areImmutableFieldsUnchanged(['id', 'timestamp']);
+      allow delete: if isAdmin();
+    }
+  }
+}

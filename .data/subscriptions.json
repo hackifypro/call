@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "Verified Silver Tier",
+    "slug": "silver",
+    "price": 0,
+    "durationDays": 30,
+    "features": [
+      "Standard directory listing",
+      "90% Net booking payout",
+      "In-app chat access",
+      "Standard support"
+    ],
+    "isActive": true
+  },
+  {
+    "id": 2,
+    "name": "Gold Elite Spotlight",
+    "slug": "gold",
+    "price": 4999,
+    "durationDays": 30,
+    "features": [
+      "Top 3 City Search Spotlight",
+      "Instant Push Booking Notifications",
+      "Zero onboarding fee",
+      "Dedicated Account Manager"
+    ],
+    "isActive": true
+  },
+  {
+    "id": 3,
+    "name": "Platinum Concierge",
+    "slug": "platinum",
+    "price": 9999,
+    "durationDays": 90,
+    "features": [
+      "Nationwide Metro Featured Carousel",
+      "Fast-Track Escrow Payouts (Same Day)",
+      "VIP Verification Badge",
+      "24/7 Priority SOS Hotline"
+    ],
+    "isActive": true
+  }
+]

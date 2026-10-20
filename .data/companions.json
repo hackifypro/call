@@ -1,0 +1,708 @@
+[
+  {
+    "id": "comp-101",
+    "userId": "usr-companion-1",
+    "displayName": "Pooja M.",
+    "legalNamePrivate": "Pooja Ramesh Mehta",
+    "age": 26,
+    "gender": "Female",
+    "bio": "Art curator and postgraduate in Classical Literature. Passionate about gallery walks, fine dining, corporate galas, and architectural heritage. Fluent in English, Hindi, and conversational French.",
+    "interests": [
+      "Fine Dining",
+      "Art Exhibitions",
+      "Classical Music",
+      "Literary Discussions",
+      "Corporate Galas"
+    ],
+    "languages": [
+      "English",
+      "Hindi",
+      "French",
+      "Marathi"
+    ],
+    "stateId": 1,
+    "stateName": "Maharashtra",
+    "stateSlug": "maharashtra",
+    "cityId": 101,
+    "cityName": "Mumbai",
+    "citySlug": "mumbai",
+    "supportedCities": [
+      "Mumbai",
+      "Thane",
+      "Navi Mumbai",
+      "Pune"
+    ],
+    "primaryPhotoUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
+    "galleryPhotos": [
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&auto=format&fit=crop&q=80"
+    ],
+    "hourlyRate": 2500,
+    "halfDayRate": 9000,
+    "fullDayRate": 16000,
+    "permittedDurations": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "status": "approved",
+    "isAvailable": true,
+    "availabilitySchedule": [
+      {
+        "day": "Monday",
+        "startTime": "17:00",
+        "endTime": "22:00",
+        "active": true
+      },
+      {
+        "day": "Wednesday",
+        "startTime": "18:00",
+        "endTime": "23:00",
+        "active": true
+      },
+      {
+        "day": "Friday",
+        "startTime": "18:00",
+        "endTime": "23:30",
+        "active": true
+      },
+      {
+        "day": "Saturday",
+        "startTime": "12:00",
+        "endTime": "23:00",
+        "active": true
+      },
+      {
+        "day": "Sunday",
+        "startTime": "12:00",
+        "endTime": "21:00",
+        "active": true
+      }
+    ],
+    "averageRating": 4.95,
+    "reviewCount": 38,
+    "totalRequests": 45,
+    "acceptedBookings": 42,
+    "completedBookings": 40,
+    "cancelledBookings": 2,
+    "rejectedRequests": 3,
+    "grossEarnings": 105000,
+    "totalCommissionPaid": 10500,
+    "netEligibleEarnings": 94500,
+    "createdAt": "2026-02-01T09:30:00Z",
+    "updatedAt": "2026-10-18T14:20:00Z"
+  },
+  {
+    "id": "comp-102",
+    "userId": "usr-comp-2",
+    "displayName": "Kabir V.",
+    "legalNamePrivate": "Kabir Vardhan Singhania",
+    "age": 28,
+    "gender": "Male",
+    "bio": "Former financial consultant & golf enthusiast. Ideal companion for business dinners, equestrian events, tech networking, and cocktail evenings. Well-traveled and articulate speaker.",
+    "interests": [
+      "Corporate Galas",
+      "Golf Events",
+      "Wine Tasting",
+      "Tech Summits",
+      "Equestrian"
+    ],
+    "languages": [
+      "English",
+      "Hindi",
+      "Punjabi"
+    ],
+    "stateId": 2,
+    "stateName": "Delhi (NCT)",
+    "stateSlug": "delhi",
+    "cityId": 201,
+    "cityName": "Delhi",
+    "citySlug": "delhi",
+    "supportedCities": [
+      "Delhi",
+      "Gurugram",
+      "Noida"
+    ],
+    "primaryPhotoUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80",
+    "galleryPhotos": [
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=800&auto=format&fit=crop&q=80"
+    ],
+    "hourlyRate": 3000,
+    "halfDayRate": 11000,
+    "fullDayRate": 20000,
+    "permittedDurations": [
+      2,
+      4,
+      8
+    ],
+    "status": "approved",
+    "isAvailable": true,
+    "availabilitySchedule": [
+      {
+        "day": "Tuesday",
+        "startTime": "18:00",
+        "endTime": "23:00",
+        "active": true
+      },
+      {
+        "day": "Thursday",
+        "startTime": "18:00",
+        "endTime": "23:00",
+        "active": true
+      },
+      {
+        "day": "Saturday",
+        "startTime": "14:00",
+        "endTime": "23:00",
+        "active": true
+      },
+      {
+        "day": "Sunday",
+        "startTime": "11:00",
+        "endTime": "20:00",
+        "active": true
+      }
+    ],
+    "averageRating": 4.9,
+    "reviewCount": 24,
+    "totalRequests": 28,
+    "acceptedBookings": 26,
+    "completedBookings": 25,
+    "cancelledBookings": 1,
+    "rejectedRequests": 2,
+    "grossEarnings": 82000,
+    "totalCommissionPaid": 8200,
+    "netEligibleEarnings": 73800,
+    "createdAt": "2026-02-15T11:00:00Z",
+    "updatedAt": "2026-10-19T10:00:00Z"
+  },
+  {
+    "id": "comp-103",
+    "userId": "usr-comp-3",
+    "displayName": "Ananya S.",
+    "legalNamePrivate": "Ananya Sen Gupta",
+    "age": 25,
+    "gender": "Female",
+    "bio": "Product designer & classical vocalist. Love exploring indie cafes in Indiranagar, design exhibitions, jazz nights, and philosophical banter over South Indian pour-over coffee.",
+    "interests": [
+      "Jazz Clubs",
+      "Coffee Tasting",
+      "Design Summits",
+      "Contemporary Dance",
+      "Theater"
+    ],
+    "languages": [
+      "English",
+      "Kannada",
+      "Bengali",
+      "Hindi"
+    ],
+    "stateId": 3,
+    "stateName": "Karnataka",
+    "stateSlug": "karnataka",
+    "cityId": 301,
+    "cityName": "Bengaluru",
+    "citySlug": "bengaluru",
+    "supportedCities": [
+      "Bengaluru",
+      "Mysuru"
+    ],
+    "primaryPhotoUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&auto=format&fit=crop&q=80",
+    "galleryPhotos": [
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80"
+    ],
+    "hourlyRate": 2200,
+    "halfDayRate": 8000,
+    "fullDayRate": 15000,
+    "permittedDurations": [
+      1,
+      2,
+      4
+    ],
+    "status": "approved",
+    "isAvailable": true,
+    "availabilitySchedule": [
+      {
+        "day": "Friday",
+        "startTime": "18:00",
+        "endTime": "23:00",
+        "active": true
+      },
+      {
+        "day": "Saturday",
+        "startTime": "11:00",
+        "endTime": "22:00",
+        "active": true
+      },
+      {
+        "day": "Sunday",
+        "startTime": "11:00",
+        "endTime": "21:00",
+        "active": true
+      }
+    ],
+    "averageRating": 5,
+    "reviewCount": 19,
+    "totalRequests": 21,
+    "acceptedBookings": 20,
+    "completedBookings": 20,
+    "cancelledBookings": 0,
+    "rejectedRequests": 1,
+    "grossEarnings": 52000,
+    "totalCommissionPaid": 5200,
+    "netEligibleEarnings": 46800,
+    "createdAt": "2026-03-01T14:00:00Z",
+    "updatedAt": "2026-10-15T18:00:00Z"
+  },
+  {
+    "id": "comp-104",
+    "userId": "usr-comp-4",
+    "displayName": "Tara K.",
+    "legalNamePrivate": "Tara Kulkarni",
+    "age": 27,
+    "gender": "Female",
+    "bio": "Sommelier and culinary enthusiast based in Nashik & Pune. Specializes in vineyard tours across Sula and York, cheese pairings, scenic drives, and relaxed social evenings.",
+    "interests": [
+      "Wine Tasting",
+      "Vineyard Tours",
+      "Gastronomy",
+      "Scenic Drives",
+      "Photography"
+    ],
+    "languages": [
+      "Marathi",
+      "English",
+      "Hindi"
+    ],
+    "stateId": 1,
+    "stateName": "Maharashtra",
+    "stateSlug": "maharashtra",
+    "cityId": 103,
+    "cityName": "Nashik",
+    "citySlug": "nashik",
+    "supportedCities": [
+      "Nashik",
+      "Pune",
+      "Mumbai"
+    ],
+    "primaryPhotoUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
+    "galleryPhotos": [
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80"
+    ],
+    "hourlyRate": 1800,
+    "halfDayRate": 6500,
+    "fullDayRate": 12000,
+    "permittedDurations": [
+      2,
+      4,
+      8
+    ],
+    "status": "approved",
+    "isAvailable": true,
+    "availabilitySchedule": [
+      {
+        "day": "Friday",
+        "startTime": "14:00",
+        "endTime": "22:00",
+        "active": true
+      },
+      {
+        "day": "Saturday",
+        "startTime": "10:00",
+        "endTime": "22:00",
+        "active": true
+      },
+      {
+        "day": "Sunday",
+        "startTime": "10:00",
+        "endTime": "20:00",
+        "active": true
+      }
+    ],
+    "averageRating": 4.88,
+    "reviewCount": 16,
+    "totalRequests": 18,
+    "acceptedBookings": 17,
+    "completedBookings": 16,
+    "cancelledBookings": 1,
+    "rejectedRequests": 1,
+    "grossEarnings": 42000,
+    "totalCommissionPaid": 4200,
+    "netEligibleEarnings": 37800,
+    "createdAt": "2026-03-10T12:00:00Z",
+    "updatedAt": "2026-10-17T11:00:00Z"
+  },
+  {
+    "id": "comp-105",
+    "userId": "usr-comp-5",
+    "displayName": "Rohan N.",
+    "legalNamePrivate": "Rohan Narang",
+    "age": 29,
+    "gender": "Male",
+    "bio": "Architectural photographer and avid sailor in Goa and Mumbai. Ready companion for coastal sunset cruises, music festivals, culinary pop-ups, and bespoke heritage explorations.",
+    "interests": [
+      "Sailing & Boating",
+      "Electronic Music",
+      "Photography",
+      "Heritage Architecture",
+      "Seafood Popups"
+    ],
+    "languages": [
+      "English",
+      "Hindi",
+      "Konkani",
+      "Spanish"
+    ],
+    "stateId": 11,
+    "stateName": "Goa",
+    "stateSlug": "goa",
+    "cityId": 1101,
+    "cityName": "Goa",
+    "citySlug": "goa",
+    "supportedCities": [
+      "Goa",
+      "Mumbai"
+    ],
+    "primaryPhotoUrl": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80",
+    "galleryPhotos": [
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80"
+    ],
+    "hourlyRate": 2800,
+    "halfDayRate": 10000,
+    "fullDayRate": 18000,
+    "permittedDurations": [
+      2,
+      4,
+      8
+    ],
+    "status": "approved",
+    "isAvailable": true,
+    "availabilitySchedule": [
+      {
+        "day": "Thursday",
+        "startTime": "16:00",
+        "endTime": "23:00",
+        "active": true
+      },
+      {
+        "day": "Friday",
+        "startTime": "14:00",
+        "endTime": "23:59",
+        "active": true
+      },
+      {
+        "day": "Saturday",
+        "startTime": "12:00",
+        "endTime": "23:59",
+        "active": true
+      },
+      {
+        "day": "Sunday",
+        "startTime": "12:00",
+        "endTime": "22:00",
+        "active": true
+      }
+    ],
+    "averageRating": 4.92,
+    "reviewCount": 22,
+    "totalRequests": 25,
+    "acceptedBookings": 23,
+    "completedBookings": 22,
+    "cancelledBookings": 1,
+    "rejectedRequests": 2,
+    "grossEarnings": 68000,
+    "totalCommissionPaid": 6800,
+    "netEligibleEarnings": 61200,
+    "createdAt": "2026-03-20T16:00:00Z",
+    "updatedAt": "2026-10-19T09:00:00Z"
+  },
+  {
+    "id": "comp-106",
+    "userId": "usr-comp-6",
+    "displayName": "Meera D.",
+    "legalNamePrivate": "Meera Deshmukh",
+    "age": 26,
+    "gender": "Female",
+    "bio": "Software engineer by day, bibliophile and theater lover by evening in Koregaon Park, Pune. Love meaningful dialogue, stand-up comedy, indie cinema, and authentic Maharashtrian cuisine.",
+    "interests": [
+      "Standup Comedy",
+      "Indie Cinema",
+      "Book Clubs",
+      "Cultural Festivals",
+      "Cafe Culture"
+    ],
+    "languages": [
+      "Marathi",
+      "English",
+      "Hindi",
+      "German"
+    ],
+    "stateId": 1,
+    "stateName": "Maharashtra",
+    "stateSlug": "maharashtra",
+    "cityId": 102,
+    "cityName": "Pune",
+    "citySlug": "pune",
+    "supportedCities": [
+      "Pune",
+      "Mumbai"
+    ],
+    "primaryPhotoUrl": "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&auto=format&fit=crop&q=80",
+    "galleryPhotos": [
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80"
+    ],
+    "hourlyRate": 1900,
+    "halfDayRate": 7000,
+    "fullDayRate": 13000,
+    "permittedDurations": [
+      1,
+      2,
+      4
+    ],
+    "status": "approved",
+    "isAvailable": true,
+    "availabilitySchedule": [
+      {
+        "day": "Friday",
+        "startTime": "18:00",
+        "endTime": "23:00",
+        "active": true
+      },
+      {
+        "day": "Saturday",
+        "startTime": "12:00",
+        "endTime": "22:00",
+        "active": true
+      },
+      {
+        "day": "Sunday",
+        "startTime": "12:00",
+        "endTime": "20:00",
+        "active": true
+      }
+    ],
+    "averageRating": 4.94,
+    "reviewCount": 18,
+    "totalRequests": 20,
+    "acceptedBookings": 19,
+    "completedBookings": 18,
+    "cancelledBookings": 1,
+    "rejectedRequests": 1,
+    "grossEarnings": 39000,
+    "totalCommissionPaid": 3900,
+    "netEligibleEarnings": 35100,
+    "createdAt": "2026-04-01T10:00:00Z",
+    "updatedAt": "2026-10-18T16:00:00Z"
+  },
+  {
+    "id": "comp-107",
+    "userId": "usr-comp-7",
+    "displayName": "Rhea P.",
+    "legalNamePrivate": "Rhea Patel",
+    "age": 24,
+    "gender": "Female",
+    "bio": "Fashion stylist and event coordinator in Ahmedabad. Perfect companion for couture shopping, high-tea at luxury hotels, art galas, and heritage walks across Old Ahmedabad.",
+    "interests": [
+      "Fashion Styling",
+      "Luxury High-Tea",
+      "Heritage Architecture",
+      "Art Galas"
+    ],
+    "languages": [
+      "Gujarati",
+      "Hindi",
+      "English"
+    ],
+    "stateId": 6,
+    "stateName": "Gujarat",
+    "stateSlug": "gujarat",
+    "cityId": 601,
+    "cityName": "Ahmedabad",
+    "citySlug": "ahmedabad",
+    "supportedCities": [
+      "Ahmedabad",
+      "Gandhinagar",
+      "Vadodara"
+    ],
+    "primaryPhotoUrl": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&auto=format&fit=crop&q=80",
+    "galleryPhotos": [
+      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&auto=format&fit=crop&q=80"
+    ],
+    "hourlyRate": 2000,
+    "halfDayRate": 7500,
+    "fullDayRate": 14000,
+    "permittedDurations": [
+      2,
+      4,
+      8
+    ],
+    "status": "approved",
+    "isAvailable": true,
+    "availabilitySchedule": [
+      {
+        "day": "Saturday",
+        "startTime": "13:00",
+        "endTime": "22:00",
+        "active": true
+      },
+      {
+        "day": "Sunday",
+        "startTime": "12:00",
+        "endTime": "21:00",
+        "active": true
+      }
+    ],
+    "averageRating": 4.87,
+    "reviewCount": 15,
+    "totalRequests": 17,
+    "acceptedBookings": 16,
+    "completedBookings": 15,
+    "cancelledBookings": 1,
+    "rejectedRequests": 1,
+    "grossEarnings": 34000,
+    "totalCommissionPaid": 3400,
+    "netEligibleEarnings": 30600,
+    "createdAt": "2026-04-12T10:00:00Z",
+    "updatedAt": "2026-10-16T12:00:00Z"
+  },
+  {
+    "id": "comp-108",
+    "userId": "usr-comp-8",
+    "displayName": "Aditya C.",
+    "legalNamePrivate": "Aditya Chowdhury",
+    "age": 27,
+    "gender": "Male",
+    "bio": "Classical pianist & debater in Kolkata. Accompany you to heritage dining at Flurys, classical concerts at Rabindra Sadan, book stalls at College Street, and polo club dinners.",
+    "interests": [
+      "Classical Piano",
+      "Literature & Debating",
+      "Colonial History",
+      "Polo Meets"
+    ],
+    "languages": [
+      "Bengali",
+      "English",
+      "Hindi"
+    ],
+    "stateId": 7,
+    "stateName": "West Bengal",
+    "stateSlug": "west-bengal",
+    "cityId": 701,
+    "cityName": "Kolkata",
+    "citySlug": "kolkata",
+    "supportedCities": [
+      "Kolkata",
+      "Howrah"
+    ],
+    "primaryPhotoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
+    "galleryPhotos": [
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80"
+    ],
+    "hourlyRate": 1800,
+    "halfDayRate": 6500,
+    "fullDayRate": 12000,
+    "permittedDurations": [
+      2,
+      4
+    ],
+    "status": "approved",
+    "isAvailable": true,
+    "availabilitySchedule": [
+      {
+        "day": "Wednesday",
+        "startTime": "18:00",
+        "endTime": "22:00",
+        "active": true
+      },
+      {
+        "day": "Saturday",
+        "startTime": "14:00",
+        "endTime": "22:00",
+        "active": true
+      }
+    ],
+    "averageRating": 4.9,
+    "reviewCount": 12,
+    "totalRequests": 14,
+    "acceptedBookings": 13,
+    "completedBookings": 12,
+    "cancelledBookings": 1,
+    "rejectedRequests": 1,
+    "grossEarnings": 25000,
+    "totalCommissionPaid": 2500,
+    "netEligibleEarnings": 22500,
+    "createdAt": "2026-05-01T08:00:00Z",
+    "updatedAt": "2026-10-14T11:00:00Z"
+  },
+  {
+    "id": "comp-109",
+    "userId": "usr-comp-pending",
+    "displayName": "Devika R.",
+    "legalNamePrivate": "Devika Radhakrishnan",
+    "age": 25,
+    "gender": "Female",
+    "bio": "Biotechnology researcher and classical Carnatic singer in Hyderabad. Enjoys science museums, royal Hyderabadi dinners, and intellectual symposiums.",
+    "interests": [
+      "Biotech & Science",
+      "Carnatic Music",
+      "Royal Dining",
+      "Museum Walks"
+    ],
+    "languages": [
+      "Telugu",
+      "English",
+      "Tamil",
+      "Hindi"
+    ],
+    "stateId": 5,
+    "stateName": "Telangana",
+    "stateSlug": "telangana",
+    "cityId": 501,
+    "cityName": "Hyderabad",
+    "citySlug": "hyderabad",
+    "supportedCities": [
+      "Hyderabad",
+      "Secunderabad"
+    ],
+    "primaryPhotoUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
+    "galleryPhotos": [
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80"
+    ],
+    "hourlyRate": 2400,
+    "halfDayRate": 8500,
+    "fullDayRate": 16000,
+    "permittedDurations": [
+      2,
+      4
+    ],
+    "status": "pending_approval",
+    "isAvailable": false,
+    "availabilitySchedule": [
+      {
+        "day": "Saturday",
+        "startTime": "12:00",
+        "endTime": "22:00",
+        "active": true
+      }
+    ],
+    "averageRating": 0,
+    "reviewCount": 0,
+    "totalRequests": 0,
+    "acceptedBookings": 0,
+    "completedBookings": 0,
+    "cancelledBookings": 0,
+    "rejectedRequests": 0,
+    "grossEarnings": 0,
+    "totalCommissionPaid": 0,
+    "netEligibleEarnings": 0,
+    "createdAt": "2026-10-19T10:00:00Z",
+    "updatedAt": "2026-10-19T10:00:00Z"
+  }
+]

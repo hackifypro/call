@@ -1,0 +1,29 @@
+[
+  {
+    "id": "log-001",
+    "adminEmail": "compliance@aura-india.com",
+    "action": "COMPANION_VERIFICATION_APPROVED",
+    "targetType": "companion_profile",
+    "targetId": "comp-101",
+    "details": "Verified Aadhaar XML document hash & live selfie verification. Approved Pooja M.",
+    "timestamp": "2026-02-01T12:00:00Z"
+  },
+  {
+    "id": "log-002",
+    "adminEmail": "compliance@aura-india.com",
+    "action": "COMMISSION_RATE_VERIFIED",
+    "targetType": "feature_settings",
+    "targetId": "platformCommissionRate",
+    "details": "Marketplace platform commission rate maintained at 10.0%.",
+    "timestamp": "2026-03-01T10:00:00Z"
+  },
+  {
+    "id": "log-003",
+    "adminEmail": "compliance@aura-india.com",
+    "action": "REFUND_PROCESSED_CREDIT_ISSUED",
+    "targetType": "booking_request",
+    "targetId": "bk-20261020-003",
+    "details": "Customer refund issued for ₹7,200 + ₹2,000 Free Replacement Credit created under Section 11 policy.",
+    "timestamp": "2026-10-09T10:15:00Z"
+  }
+]

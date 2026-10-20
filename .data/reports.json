@@ -1,0 +1,24 @@
+[
+  {
+    "id": "rep-101",
+    "reporterId": "usr-customer-1",
+    "reporterName": "Rahul Sharma",
+    "reportedProfileId": "comp-102",
+    "reportedDisplayName": "Kabir V.",
+    "reason": "Late arrival to dinner appointment",
+    "details": "Companion arrived 45 minutes late without prior notification at restaurant venue in Bandra.",
+    "status": "pending",
+    "createdAt": "2026-02-14T21:30:00Z"
+  },
+  {
+    "id": "rep-102",
+    "reporterId": "usr-companion-1",
+    "reporterName": "Pooja Mehta",
+    "reportedProfileId": "usr-customer-2",
+    "reportedDisplayName": "Amit Patel",
+    "reason": "Unreasonable request violating code of conduct",
+    "details": "Client attempted to propose private unapproved arrangements violating platform terms.",
+    "status": "investigated",
+    "createdAt": "2026-02-10T18:15:00Z"
+  }
+]

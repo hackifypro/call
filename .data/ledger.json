@@ -1,0 +1,35 @@
+[
+  {
+    "id": "ledg-001",
+    "bookingId": "bk-20261020-001",
+    "bookingRef": "BK-20261020-84A1",
+    "transactionType": "commission_credit",
+    "amount": 500,
+    "ratePercentage": 10,
+    "balanceAfter": 24700,
+    "notes": "10% Platform fee retained on Mumbai fine dining booking",
+    "createdAt": "2026-10-19T17:16:00Z"
+  },
+  {
+    "id": "ledg-002",
+    "bookingId": "bk-20261020-002",
+    "bookingRef": "BK-20261015-77B2",
+    "transactionType": "commission_credit",
+    "amount": 500,
+    "ratePercentage": 10,
+    "balanceAfter": 24200,
+    "notes": "10% Platform fee on completed Bandra booking",
+    "createdAt": "2026-10-15T20:31:00Z"
+  },
+  {
+    "id": "ledg-003",
+    "bookingId": "bk-20261020-003",
+    "bookingRef": "BK-20261010-99C3",
+    "transactionType": "commission_refund",
+    "amount": -720,
+    "ratePercentage": 10,
+    "balanceAfter": 23700,
+    "notes": "Reversal of 10% commission due to companion cancellation & full refund",
+    "createdAt": "2026-10-09T10:05:00Z"
+  }
+]

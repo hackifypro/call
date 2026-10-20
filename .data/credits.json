@@ -1,0 +1,12 @@
+[
+  {
+    "id": "crd-001",
+    "userId": "usr-customer-1",
+    "creditAmount": 2000,
+    "originalBookingId": "bk-20261020-003",
+    "reason": "Replacement Booking Credit for cancelled Nashik vineyard booking (Companion unfulfilled)",
+    "status": "available",
+    "expiresAt": "2027-10-10T00:00:00Z",
+    "createdAt": "2026-10-09T10:10:00Z"
+  }
+]

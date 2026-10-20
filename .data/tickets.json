@@ -1,0 +1,46 @@
+[
+  {
+    "id": "tkt-001",
+    "ticketRef": "TCK-202610-0081",
+    "userId": "usr-customer-1",
+    "userName": "Rahul Sharma",
+    "userRole": "customer",
+    "subject": "Question regarding Replacement Booking Credit validity in Bengaluru",
+    "category": "booking",
+    "message": "I have a ₹2,000 replacement credit from a previous unfulfilled booking. Can I redeem it for a booking in Bengaluru next weekend?",
+    "status": "in_progress",
+    "replies": [
+      {
+        "id": "rep-001",
+        "senderName": "Vikramaditya (Trust & Safety)",
+        "isStaff": true,
+        "message": "Hello Rahul, Yes! Your replacement booking credits are valid across all 22 Indian states and actively served cities on the platform.",
+        "createdAt": "2026-10-19T11:20:00Z"
+      }
+    ],
+    "createdAt": "2026-10-19T09:40:00Z",
+    "updatedAt": "2026-10-19T11:20:00Z"
+  },
+  {
+    "id": "tkt-002",
+    "ticketRef": "TCK-202610-0094",
+    "userId": "usr-companion-1",
+    "userName": "Pooja Mehta",
+    "userRole": "companion",
+    "subject": "Updating supported cities to include Pune and Nashik",
+    "category": "verification",
+    "message": "I would like to enable travel availability for Pune and Nashik weekend bookings in addition to Mumbai.",
+    "status": "resolved",
+    "replies": [
+      {
+        "id": "rep-002",
+        "senderName": "Compliance Officer",
+        "isStaff": true,
+        "message": "Your profile has been updated and Pune/Nashik are now active in your supported cities.",
+        "createdAt": "2026-10-15T16:00:00Z"
+      }
+    ],
+    "createdAt": "2026-10-15T14:10:00Z",
+    "updatedAt": "2026-10-15T16:00:00Z"
+  }
+]
