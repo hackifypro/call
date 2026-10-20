@@ -16,7 +16,7 @@ import {
 import { formatINR, formatDateOnly } from '@/lib/utils';
 import { ReviewRecord, BookingRequest } from '@/lib/types';
 
-export default function CustomerReviewsPage() {
+function CustomerReviewsContent() {
   const searchParams = useSearchParams();
   const preselectedBookingId = searchParams.get('bookingId');
 
@@ -268,5 +268,22 @@ export default function CustomerReviewsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CustomerReviewsPage() {
+  return (
+    <React.Suspense
+      fallback={
+        <div className="min-h-screen bg-[#090d16] flex items-center justify-center text-slate-400">
+          <div className="flex items-center gap-2">
+            <span className="w-4 h-4 border-2 border-pink-500 border-t-transparent rounded-full animate-spin" />
+            <span>Loading reviews...</span>
+          </div>
+        </div>
+      }
+    >
+      <CustomerReviewsContent />
+    </React.Suspense>
   );
 }

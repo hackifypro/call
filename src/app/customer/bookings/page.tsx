@@ -37,7 +37,7 @@ type TabKey =
   | 'cancelled'
   | 'refunds';
 
-export default function CustomerBookingsPage() {
+function CustomerBookingsContent() {
   const searchParams = useSearchParams();
   const highlightRef = searchParams.get('ref');
 
@@ -575,5 +575,22 @@ export default function CustomerBookingsPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function CustomerBookingsPage() {
+  return (
+    <React.Suspense
+      fallback={
+        <div className="min-h-screen bg-[#090d16] flex items-center justify-center text-slate-400">
+          <div className="flex items-center gap-2">
+            <span className="w-4 h-4 border-2 border-pink-500 border-t-transparent rounded-full animate-spin" />
+            <span>Loading bookings...</span>
+          </div>
+        </div>
+      }
+    >
+      <CustomerBookingsContent />
+    </React.Suspense>
   );
 }
