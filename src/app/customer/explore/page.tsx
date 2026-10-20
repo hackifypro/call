@@ -107,8 +107,8 @@ export default function CustomerExplorePage() {
     if (selectedState && c.stateSlug !== selectedState) return false;
     if (selectedCity && c.cityName.toLowerCase() !== selectedCity.toLowerCase()) return false;
     if (c.hourlyRate > maxPrice) return false;
-    if (minRating > 0 && c.rating < minRating) return false;
-    if (verifiedOnly && !c.isVerified) return false;
+    if (minRating > 0 && (c.averageRating || c.rating || 0) < minRating) return false;
+    if (verifiedOnly && !(c.status === 'approved' || c.isVerified)) return false;
 
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
@@ -124,7 +124,7 @@ export default function CustomerExplorePage() {
   }).sort((a, b) => {
     if (sortBy === 'price_low') return a.hourlyRate - b.hourlyRate;
     if (sortBy === 'price_high') return b.hourlyRate - a.hourlyRate;
-    if (sortBy === 'rating') return b.rating - a.rating;
+    if (sortBy === 'rating') return (b.averageRating || b.rating || 0) - (a.averageRating || a.rating || 0);
     return (b.completedBookings || 0) - (a.completedBookings || 0);
   });
 

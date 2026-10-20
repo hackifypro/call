@@ -108,7 +108,7 @@ export default function MessagesPage() {
                 visibleConversations.map((conv) => {
                   const isSelected = conv.id === activeConvId;
                   const otherPartyName =
-                    currentRole === 'companion' ? conv.customerName : conv.companionName;
+                    (currentRole === 'companion' ? conv.customerName : (conv.companionDisplayName || conv.companionName)) || 'User';
 
                   return (
                     <div
@@ -121,16 +121,16 @@ export default function MessagesPage() {
                       }`}
                     >
                       <div className="relative w-11 h-11 rounded-full overflow-hidden flex-shrink-0 border border-white/10 bg-slate-800">
-                        {conv.companionPhoto ? (
+                        {(conv.companionPhotoUrl || conv.companionPhoto) ? (
                           <Image
-                            src={conv.companionPhoto}
+                            src={(conv.companionPhotoUrl || conv.companionPhoto)!}
                             alt={otherPartyName}
                             fill
                             className="object-cover"
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-slate-400 font-bold">
-                            {otherPartyName[0]}
+                            {otherPartyName[0] || 'U'}
                           </div>
                         )}
                       </div>
@@ -170,10 +170,10 @@ export default function MessagesPage() {
                 <div className="p-4 border-b border-white/10 flex items-center justify-between bg-slate-950/80">
                   <div className="flex items-center space-x-3">
                     <div className="relative w-10 h-10 rounded-full overflow-hidden border border-purple-500/30">
-                      {activeConv.companionPhoto ? (
+                      {(activeConv.companionPhotoUrl || activeConv.companionPhoto) ? (
                         <Image
-                          src={activeConv.companionPhoto}
-                          alt={activeConv.companionName}
+                          src={(activeConv.companionPhotoUrl || activeConv.companionPhoto)!}
+                          alt={activeConv.companionDisplayName || activeConv.companionName || 'Companion'}
                           fill
                           className="object-cover"
                         />

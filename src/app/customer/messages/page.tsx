@@ -132,17 +132,17 @@ export default function CustomerMessagesPage() {
                     }`}
                   >
                     <div className="relative w-11 h-11 rounded-2xl overflow-hidden bg-slate-900 shrink-0">
-                      {conv.companionPhotoUrl ? (
-                        <Image src={conv.companionPhotoUrl} alt={conv.companionDisplayName} fill className="object-cover" />
+                      {(conv.companionPhotoUrl || conv.companionPhoto) ? (
+                        <Image src={(conv.companionPhotoUrl || conv.companionPhoto)!} alt={conv.companionDisplayName || conv.companionName || 'Companion'} fill className="object-cover" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center font-bold text-white bg-purple-900">
-                          {conv.companionDisplayName.charAt(0)}
+                          {(conv.companionDisplayName || conv.companionName || 'C').charAt(0)}
                         </div>
                       )}
                     </div>
                     <div className="flex-1 min-w-0 space-y-1">
                       <div className="flex items-center justify-between">
-                        <p className="font-bold text-white text-xs truncate">{conv.companionDisplayName}</p>
+                        <p className="font-bold text-white text-xs truncate">{conv.companionDisplayName || conv.companionName}</p>
                         <span className="text-[10px] text-slate-500">
                           {conv.lastMessageAt ? formatDateOnly(conv.lastMessageAt) : ''}
                         </span>
@@ -165,21 +165,21 @@ export default function CustomerMessagesPage() {
               <div className="p-4 border-b border-white/10 flex items-center justify-between bg-[#0e1024]">
                 <div className="flex items-center space-x-3">
                   <div className="relative w-10 h-10 rounded-2xl overflow-hidden bg-slate-900 shrink-0">
-                    {activeConversation.companionPhotoUrl ? (
+                    {(activeConversation.companionPhotoUrl || activeConversation.companionPhoto) ? (
                       <Image
-                        src={activeConversation.companionPhotoUrl}
-                        alt={activeConversation.companionDisplayName}
+                        src={(activeConversation.companionPhotoUrl || activeConversation.companionPhoto)!}
+                        alt={activeConversation.companionDisplayName || activeConversation.companionName || 'Companion'}
                         fill
                         className="object-cover"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center font-bold text-white bg-purple-900">
-                        {activeConversation.companionDisplayName.charAt(0)}
+                        {(activeConversation.companionDisplayName || activeConversation.companionName || 'C').charAt(0)}
                       </div>
                     )}
                   </div>
                   <div>
-                    <h3 className="font-bold text-white text-sm">{activeConversation.companionDisplayName}</h3>
+                    <h3 className="font-bold text-white text-sm">{activeConversation.companionDisplayName || activeConversation.companionName}</h3>
                     <div className="flex items-center space-x-2 text-[10px]">
                       <span className="font-mono text-purple-300">{activeConversation.bookingRef}</span>
                       <span className="text-emerald-400 font-semibold">• Escrow Active</span>
@@ -199,7 +199,7 @@ export default function CustomerMessagesPage() {
 
               {/* Messages Body */}
               <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-3">
-                {activeConversation.messages.map((msg) => {
+                {(activeConversation.messages || []).map((msg) => {
                   const isMe = msg.senderRole === 'customer';
 
                   return (

@@ -309,7 +309,7 @@ export default function CustomerProfileDetailPage({ params }: { params: { id: st
                 <div>
                   <div className="flex items-center space-x-2">
                     <h1 className="text-3xl font-black text-white">{companion.displayName}, {companion.age}</h1>
-                    {companion.isVerified && (
+                    {(companion.status === 'approved' || companion.isVerified) && (
                       <span className="px-2.5 py-1 rounded-full bg-emerald-500/90 text-white text-xs font-bold flex items-center space-x-1">
                         <Shield className="w-3.5 h-3.5" />
                         <span>18+ Adult Verified</span>
@@ -360,7 +360,7 @@ export default function CustomerProfileDetailPage({ params }: { params: { id: st
                 <p className="text-xs text-slate-400">Rating</p>
                 <p className="text-lg font-bold text-amber-400 flex items-center space-x-1">
                   <span>★</span>
-                  <span>{companion.rating} ({companion.reviewCount || 0})</span>
+                  <span>{companion.averageRating || companion.rating || 5.0} ({companion.reviewCount || 0})</span>
                 </p>
               </div>
               <div>

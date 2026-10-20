@@ -261,17 +261,18 @@ export interface CommissionLedgerEntry {
   id: string;
   bookingId: string;
   bookingRef: string;
-  transactionType: 'commission_credit' | 'commission_refund' | 'registration_fee' | 'subscription_fee';
-  amount: number;
-  ratePercentage: number;
-  balanceAfter: number;
-  notes: string;
+  transactionType?: 'commission_credit' | 'commission_refund' | 'registration_fee' | 'subscription_fee';
+  amount?: number;
+  ratePercentage?: number;
+  balanceAfter?: number;
+  notes?: string;
   createdAt: string;
   grossBookingAmount?: number;
   customerGrossAmount?: number;
   platformCommission?: number;
   platformCommissionRate?: number;
   companionPayoutAmount?: number;
+  isSettled?: boolean;
 }
 
 export interface PayoutRecord {
@@ -385,6 +386,7 @@ export interface SupportTicketReply {
   id: string;
   senderName: string;
   authorName?: string;
+  authorRole?: string;
   isStaff: boolean;
   message: string;
   createdAt: string;
@@ -393,15 +395,16 @@ export interface SupportTicketReply {
 export interface SupportTicket {
   id: string;
   ticketRef: string;
-  userId: string;
+  bookingRef?: string;
+  userId?: string;
   customerId?: string;
   customerEmail?: string;
   customerName?: string;
-  userName: string;
-  userRole: UserRole;
+  userName?: string;
+  userRole?: UserRole;
   subject: string;
   category: 'payment' | 'booking' | 'dispute' | 'verification' | 'safety' | 'technical';
-  message: string;
+  message?: string;
   status: 'open' | 'in_progress' | 'waiting_user' | 'resolved' | 'closed';
   priority?: string;
   replies: SupportTicketReply[];
@@ -415,11 +418,11 @@ export interface ChatMessage {
   senderId: string;
   senderName: string;
   senderRole?: string;
-  messageText: string;
+  messageText?: string;
   text?: string;
   createdAt: string;
   timestamp?: string;
-  isRead: boolean;
+  isRead?: boolean;
 }
 
 export interface ChatConversation {
@@ -429,9 +432,10 @@ export interface ChatConversation {
   customerId: string;
   customerName: string;
   companionId: string;
-  companionName: string;
+  companionName?: string;
   companionDisplayName?: string;
-  companionPhoto: string;
+  companionPhoto?: string;
+  companionPhotoUrl?: string;
   lastMessage: string;
   lastMessageAt: string;
   unreadCount: number;

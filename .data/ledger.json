@@ -1,5 +1,82 @@
 [
   {
+    "id": "led-441163",
+    "createdAt": "2026-10-20T11:24:01.163Z",
+    "bookingId": "bk-1792495441161-c1sst",
+    "bookingRef": "BK-20261020-ZFG9",
+    "customerGrossAmount": 5000,
+    "platformCommissionRate": 10,
+    "platformCommission": 500,
+    "companionPayoutAmount": 4500,
+    "isSettled": false
+  },
+  {
+    "id": "led-441138",
+    "createdAt": "2026-10-20T11:24:01.139Z",
+    "bookingId": "bk-1792495441136-y7q6c",
+    "bookingRef": "BK-20261020-X0Z1",
+    "customerGrossAmount": 5000,
+    "platformCommissionRate": 10,
+    "platformCommission": 500,
+    "companionPayoutAmount": 4500,
+    "isSettled": false
+  },
+  {
+    "id": "led-409003",
+    "createdAt": "2026-10-20T11:23:29.003Z",
+    "bookingId": "bk-1792495409001-wtqik",
+    "bookingRef": "BK-20261020-Y70G",
+    "customerGrossAmount": 5000,
+    "platformCommissionRate": 10,
+    "platformCommission": 500,
+    "companionPayoutAmount": 4500,
+    "isSettled": false
+  },
+  {
+    "id": "led-408985",
+    "createdAt": "2026-10-20T11:23:28.985Z",
+    "bookingId": "bk-1792495408984-3dwj6",
+    "bookingRef": "BK-20261020-M94S",
+    "customerGrossAmount": 5000,
+    "platformCommissionRate": 10,
+    "platformCommission": 500,
+    "companionPayoutAmount": 4500,
+    "isSettled": false
+  },
+  {
+    "id": "led-370331",
+    "createdAt": "2026-10-20T11:22:50.331Z",
+    "bookingId": "bk-1792495370328-ie38k",
+    "bookingRef": "BK-20261020-7188",
+    "customerGrossAmount": 5000,
+    "platformCommissionRate": 10,
+    "platformCommission": 500,
+    "companionPayoutAmount": 4500,
+    "isSettled": false
+  },
+  {
+    "id": "led-332186",
+    "createdAt": "2026-10-20T11:22:12.186Z",
+    "bookingId": "bk-1792495332182-swyl4",
+    "bookingRef": "BK-20261020-UQCB",
+    "customerGrossAmount": 5000,
+    "platformCommissionRate": 10,
+    "platformCommission": 500,
+    "companionPayoutAmount": 4500,
+    "isSettled": false
+  },
+  {
+    "id": "led-332161",
+    "createdAt": "2026-10-20T11:22:12.161Z",
+    "bookingId": "bk-1792495332158-jldza",
+    "bookingRef": "BK-20261020-OM1D",
+    "customerGrossAmount": 5000,
+    "platformCommissionRate": 10,
+    "platformCommission": 500,
+    "companionPayoutAmount": 4500,
+    "isSettled": false
+  },
+  {
     "id": "ledg-001",
     "bookingId": "bk-20261020-001",
     "bookingRef": "BK-20261020-84A1",

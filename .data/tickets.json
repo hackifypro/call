@@ -1,5 +1,101 @@
 [
   {
+    "id": "tck-1792495441180",
+    "ticketRef": "TCK-50973",
+    "customerId": "usr-cust-1792495441096",
+    "customerName": "Aditya Roy",
+    "customerEmail": "customer.1792495441096@aura-india.com",
+    "bookingRef": "BK-20261020-X0Z1",
+    "category": "payment",
+    "subject": "Escrow verification question",
+    "priority": "medium",
+    "status": "open",
+    "createdAt": "2026-10-20T11:24:01.180Z",
+    "updatedAt": "2026-10-20T11:24:01.183Z",
+    "replies": [
+      {
+        "id": "rep-1792495441180",
+        "senderName": "Aditya Roy",
+        "authorName": "Aditya Roy",
+        "isStaff": false,
+        "message": "Could you please confirm if my GST invoice includes companion breakdown?",
+        "createdAt": "2026-10-20T11:24:01.180Z"
+      },
+      {
+        "id": "rep-1792495441183",
+        "senderName": "Aditya Roy",
+        "authorName": "Aditya Roy",
+        "isStaff": false,
+        "message": "Following up with additional clarification.",
+        "createdAt": "2026-10-20T11:24:01.183Z"
+      }
+    ]
+  },
+  {
+    "id": "tck-1792495409020",
+    "ticketRef": "TCK-51399",
+    "customerId": "usr-customer-test-101",
+    "customerName": "Aditya Roy",
+    "customerEmail": "test.customer@aura-india.com",
+    "bookingRef": "BK-20261020-M94S",
+    "category": "payment",
+    "subject": "Escrow verification question",
+    "priority": "medium",
+    "status": "open",
+    "createdAt": "2026-10-20T11:23:29.020Z",
+    "updatedAt": "2026-10-20T11:23:29.022Z",
+    "replies": [
+      {
+        "id": "rep-1792495409020",
+        "senderName": "Aditya Roy",
+        "authorName": "Aditya Roy",
+        "isStaff": false,
+        "message": "Could you please confirm if my GST invoice includes companion breakdown?",
+        "createdAt": "2026-10-20T11:23:29.020Z"
+      },
+      {
+        "id": "rep-1792495409022",
+        "senderName": "Aditya Roy",
+        "authorName": "Aditya Roy",
+        "isStaff": false,
+        "message": "Following up with additional clarification.",
+        "createdAt": "2026-10-20T11:23:29.022Z"
+      }
+    ]
+  },
+  {
+    "id": "tck-1792495332206",
+    "ticketRef": "TCK-62371",
+    "customerId": "usr-customer-test-101",
+    "customerName": "Aditya Roy",
+    "customerEmail": "test.customer@aura-india.com",
+    "bookingRef": "BK-20261020-OM1D",
+    "category": "payment",
+    "subject": "Escrow verification question",
+    "priority": "medium",
+    "status": "open",
+    "createdAt": "2026-10-20T11:22:12.206Z",
+    "updatedAt": "2026-10-20T11:22:12.208Z",
+    "replies": [
+      {
+        "id": "rep-1792495332206",
+        "senderName": "Aditya Roy",
+        "authorName": "Aditya Roy",
+        "isStaff": false,
+        "message": "Could you please confirm if my GST invoice includes companion breakdown?",
+        "createdAt": "2026-10-20T11:22:12.206Z"
+      },
+      {
+        "id": "rep-1792495332208",
+        "senderName": "Aditya Roy",
+        "authorName": "Aditya Roy",
+        "isStaff": false,
+        "message": "Following up with additional clarification.",
+        "createdAt": "2026-10-20T11:22:12.208Z"
+      }
+    ]
+  },
+  {
     "id": "tkt-001",
     "ticketRef": "TCK-202610-0081",
     "userId": "usr-customer-1",

@@ -8,9 +8,9 @@ import { formatINR, formatDateOnly } from '@/lib/utils';
 export default function AdminPaymentsPage() {
   const { commissionLedger, payouts, approvePayout, bookings } = usePlatformStore();
 
-  const totalGross = commissionLedger.reduce((sum, e) => sum + (e.grossBookingAmount || (e.amount * 10)), 0);
-  const totalCommission = commissionLedger.reduce((sum, e) => sum + (e.platformCommission || e.amount), 0);
-  const totalNetCompanion = commissionLedger.reduce((sum, e) => sum + (e.companionPayoutAmount || (e.amount * 9)), 0);
+  const totalGross = commissionLedger.reduce((sum, e) => sum + (e.grossBookingAmount || ((e.amount || 0) * 10)), 0);
+  const totalCommission = commissionLedger.reduce((sum, e) => sum + (e.platformCommission || e.amount || 0), 0);
+  const totalNetCompanion = commissionLedger.reduce((sum, e) => sum + (e.companionPayoutAmount || ((e.amount || 0) * 9)), 0);
 
   return (
     <div className="space-y-6">
@@ -66,9 +66,9 @@ export default function AdminPaymentsPage() {
                 <tr key={entry.id} className="hover:bg-slate-900/40 transition">
                   <td className="py-2.5 px-3 font-mono text-slate-400">{entry.id}</td>
                   <td className="py-2.5 px-3 font-mono text-pink-400 font-semibold">{entry.bookingRef}</td>
-                  <td className="py-2.5 px-3 font-mono text-white">{formatINR(entry.grossBookingAmount || (entry.amount * 10))}</td>
-                  <td className="py-2.5 px-3 font-mono text-purple-300 font-bold">{formatINR(entry.platformCommission || entry.amount)}</td>
-                  <td className="py-2.5 px-3 font-mono text-emerald-400 font-bold">{formatINR(entry.companionPayoutAmount || (entry.amount * 9))}</td>
+                  <td className="py-2.5 px-3 font-mono text-white">{formatINR(entry.grossBookingAmount || ((entry.amount || 0) * 10))}</td>
+                  <td className="py-2.5 px-3 font-mono text-purple-300 font-bold">{formatINR(entry.platformCommission || entry.amount || 0)}</td>
+                  <td className="py-2.5 px-3 font-mono text-emerald-400 font-bold">{formatINR(entry.companionPayoutAmount || ((entry.amount || 0) * 9))}</td>
                   <td className="py-2.5 px-3">
                     <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
                       SETTLED

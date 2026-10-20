@@ -495,7 +495,7 @@ export default function CustomerDashboardPage() {
                         <div className="flex items-center space-x-1.5">
                           <p className="text-xs font-bold text-white">{c.displayName}</p>
                           <span className="text-[10px] text-amber-400 flex items-center">
-                            ★ {c.rating}
+                            ★ {c.averageRating || c.rating || 5.0}
                           </span>
                         </div>
                         <p className="text-[11px] text-slate-400">{c.cityName} • {formatINR(c.hourlyRate)}/hr</p>

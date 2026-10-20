@@ -795,14 +795,20 @@ export class ServerDatabase {
       'usr-customer-default': ['comp-101', 'comp-103'],
     };
     const store = readTable<Record<string, string[]>>('favorites.json', defaultFavorites);
-    return store[customerId] || store['usr-customer-1'] || [];
+    if (store[customerId]) {
+      return store[customerId];
+    }
+    if (customerId === 'usr-customer-1' || customerId === 'usr-customer-default') {
+      return ['comp-101', 'comp-103'];
+    }
+    return [];
   }
 
   static toggleCustomerFavorite(customerId: string, companionId: string): { isFavorite: boolean; favorites: string[] } {
     const store = readTable<Record<string, string[]>>('favorites.json', {
       'usr-customer-1': ['comp-101', 'comp-103'],
     });
-    const current = store[customerId] || [...(store['usr-customer-1'] || [])];
+    const current = store[customerId] || (customerId === 'usr-customer-1' || customerId === 'usr-customer-default' ? ['comp-101', 'comp-103'] : []);
     const exists = current.includes(companionId);
     let updated: string[];
 
@@ -824,7 +830,13 @@ export class ServerDatabase {
       'usr-customer-default': ['comp-102', 'comp-104'],
     };
     const store = readTable<Record<string, string[]>>('recently_viewed.json', defaultRecent);
-    return store[customerId] || store['usr-customer-1'] || [];
+    if (store[customerId]) {
+      return store[customerId];
+    }
+    if (customerId === 'usr-customer-1' || customerId === 'usr-customer-default') {
+      return ['comp-102', 'comp-104'];
+    }
+    return [];
   }
 
   static addCustomerRecentlyViewed(customerId: string, companionId: string): string[] {
@@ -1291,11 +1303,14 @@ export class ServerDatabase {
       senderId: params.sender === 'customer' ? params.customerId : params.companionId,
       senderName: params.sender === 'customer' ? params.customerName : params.companionName,
       senderRole: params.sender,
+      messageText: params.message,
       text: params.message,
       createdAt: new Date().toISOString(),
+      isRead: false,
     };
 
     if (conv) {
+      if (!conv.messages) conv.messages = [];
       conv.messages.push(newMsg);
       conv.lastMessage = params.message;
       conv.lastMessageAt = new Date().toISOString();
@@ -1307,7 +1322,9 @@ export class ServerDatabase {
         customerId: params.customerId,
         customerName: params.customerName,
         companionId: params.companionId,
+        companionName: params.companionName,
         companionDisplayName: params.companionName,
+        companionPhoto: '',
         lastMessage: params.message,
         lastMessageAt: new Date().toISOString(),
         unreadCount: 0,

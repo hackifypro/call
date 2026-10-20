@@ -55,7 +55,7 @@ export default function CustomerCitiesPage() {
   // Filter cities
   const filteredCities = allCities.filter((city) => {
     if (selectedStateSlug && city.stateSlug !== selectedStateSlug) return false;
-    if (tierFilter !== 'all' && city.tier !== tierFilter) return false;
+    if (tierFilter !== 'all' && `Tier ${city.tier}` !== tierFilter) return false;
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       const matchCity = city.name.toLowerCase().includes(q);
@@ -154,12 +154,12 @@ export default function CustomerCitiesPage() {
 
                 <span
                   className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                    city.tier === 'Tier 1'
+                    city.tier === 1
                       ? 'bg-amber-400/10 text-amber-300 border border-amber-400/30'
                       : 'bg-white/5 text-slate-400'
                   }`}
                 >
-                  {city.tier}
+                  Tier {city.tier}
                 </span>
               </div>
 

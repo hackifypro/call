@@ -1,5 +1,104 @@
 [
   {
+    "id": "aud-5441167",
+    "adminEmail": "system@aura-india.com",
+    "action": "BROADCAST_NOTIFICATION",
+    "targetType": "notification",
+    "targetId": "notif-441165",
+    "details": "Broadcast: New Booking Confirmed to customer",
+    "timestamp": "2026-10-20T11:24:01.167Z"
+  },
+  {
+    "id": "aud-5441153",
+    "adminEmail": "system@aura-india.com",
+    "action": "ISSUE_REPLACEMENT_CREDIT",
+    "targetType": "credit",
+    "targetId": "crd-441150",
+    "details": "Issued ₹5000 replacement credit for booking bk-1792495441136-y7q6c. Reason: Section 11 Cancellation: 100% Replacement Credit (>24 hours notice)",
+    "timestamp": "2026-10-20T11:24:01.153Z"
+  },
+  {
+    "id": "aud-5441142",
+    "adminEmail": "system@aura-india.com",
+    "action": "BROADCAST_NOTIFICATION",
+    "targetType": "notification",
+    "targetId": "notif-441140",
+    "details": "Broadcast: New Booking Confirmed to customer",
+    "timestamp": "2026-10-20T11:24:01.142Z"
+  },
+  {
+    "id": "aud-5409007",
+    "adminEmail": "system@aura-india.com",
+    "action": "BROADCAST_NOTIFICATION",
+    "targetType": "notification",
+    "targetId": "notif-409006",
+    "details": "Broadcast: New Booking Confirmed to customer",
+    "timestamp": "2026-10-20T11:23:29.007Z"
+  },
+  {
+    "id": "aud-5408995",
+    "adminEmail": "system@aura-india.com",
+    "action": "ISSUE_REPLACEMENT_CREDIT",
+    "targetType": "credit",
+    "targetId": "crd-408993",
+    "details": "Issued ₹5000 replacement credit for booking bk-1792495408984-3dwj6. Reason: Section 11 Cancellation: 100% Replacement Credit (>24 hours notice)",
+    "timestamp": "2026-10-20T11:23:28.995Z"
+  },
+  {
+    "id": "aud-5408989",
+    "adminEmail": "system@aura-india.com",
+    "action": "BROADCAST_NOTIFICATION",
+    "targetType": "notification",
+    "targetId": "notif-408987",
+    "details": "Broadcast: New Booking Confirmed to customer",
+    "timestamp": "2026-10-20T11:23:28.989Z"
+  },
+  {
+    "id": "aud-5370345",
+    "adminEmail": "system@aura-india.com",
+    "action": "ISSUE_REPLACEMENT_CREDIT",
+    "targetType": "credit",
+    "targetId": "crd-370343",
+    "details": "Issued ₹5000 replacement credit for booking bk-1792495370328-ie38k. Reason: Section 11 Cancellation: 100% Replacement Credit (>24 hours notice)",
+    "timestamp": "2026-10-20T11:22:50.345Z"
+  },
+  {
+    "id": "aud-5370335",
+    "adminEmail": "system@aura-india.com",
+    "action": "BROADCAST_NOTIFICATION",
+    "targetType": "notification",
+    "targetId": "notif-370333",
+    "details": "Broadcast: New Booking Confirmed to customer",
+    "timestamp": "2026-10-20T11:22:50.335Z"
+  },
+  {
+    "id": "aud-5332190",
+    "adminEmail": "system@aura-india.com",
+    "action": "BROADCAST_NOTIFICATION",
+    "targetType": "notification",
+    "targetId": "notif-332188",
+    "details": "Broadcast: New Booking Confirmed to customer",
+    "timestamp": "2026-10-20T11:22:12.190Z"
+  },
+  {
+    "id": "aud-5332174",
+    "adminEmail": "system@aura-india.com",
+    "action": "ISSUE_REPLACEMENT_CREDIT",
+    "targetType": "credit",
+    "targetId": "crd-332172",
+    "details": "Issued ₹5000 replacement credit for booking bk-1792495332158-jldza. Reason: Section 11 Cancellation: 100% Replacement Credit (>24 hours notice)",
+    "timestamp": "2026-10-20T11:22:12.174Z"
+  },
+  {
+    "id": "aud-5332165",
+    "adminEmail": "system@aura-india.com",
+    "action": "BROADCAST_NOTIFICATION",
+    "targetType": "notification",
+    "targetId": "notif-332162",
+    "details": "Broadcast: New Booking Confirmed to customer",
+    "timestamp": "2026-10-20T11:22:12.165Z"
+  },
+  {
     "id": "log-001",
     "adminEmail": "compliance@aura-india.com",
     "action": "COMPANION_VERIFICATION_APPROVED",
