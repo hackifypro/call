@@ -1,4 +1,5 @@
 import React from 'react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import {
   ShieldCheck,
@@ -11,6 +12,13 @@ import {
   ArrowRight,
 } from 'lucide-react';
 
+export const metadata: Metadata = {
+  title: 'How It Works — Transparent Booking & Verified Companionship',
+  description:
+    'Learn how Aura India works: browse verified adult companions, book transparently with 10% platform fee, and enjoy secure, private meetings in public venues.',
+  keywords: ['how companion booking works', 'booking guide aura india', 'verified companionship process', 'safe booking steps'],
+};
+
 export default function HowItWorksPage() {
   return (
     <div className="min-h-screen bg-[#090d16] text-slate-100 py-12 px-4 sm:px-6 max-w-5xl mx-auto w-full space-y-12">
@@ -19,7 +27,7 @@ export default function HowItWorksPage() {
           Transparent Marketplace Standards
         </span>
         <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-          How Elite Companions India Works
+          How Aura India Works
         </h1>
         <p className="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
           A secure, auditable platform connecting ID-verified adult companions with cultured clients across Indian metros with an upfront 10% platform fee.

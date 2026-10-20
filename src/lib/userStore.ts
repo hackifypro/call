@@ -62,8 +62,6 @@ export async function initializeUserStore() {
   // If store is empty, provision initial Super Admin and staff roles
   if (memoryUsers.length === 0) {
     const adminHash = await hashPassword('Admin@2026Secure');
-    const customerHash = await hashPassword('Customer@2026Pass');
-    const companionHash = await hashPassword('Companion@2026Pass');
 
     const defaultStaff: StoredUserRecord[] = [
       {
@@ -97,28 +95,6 @@ export async function initializeUserStore() {
         role: 'moderator',
         isActive: true,
         passwordHash: adminHash,
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: 'usr-customer-default',
-        email: 'customer@aura-india.com',
-        fullName: 'Rahul Sharma',
-        phoneNumber: '+919820112233',
-        phoneVerified: true,
-        role: 'customer',
-        isActive: true,
-        passwordHash: customerHash,
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: 'usr-companion-default',
-        email: 'companion@aura-india.com',
-        fullName: 'Pooja Mehta',
-        phoneNumber: '+919876543210',
-        phoneVerified: true,
-        role: 'companion',
-        isActive: true,
-        passwordHash: companionHash,
         createdAt: new Date().toISOString(),
       },
     ];

@@ -3,7 +3,7 @@ import { INDIAN_CITIES } from '@/lib/geoData';
 import { INITIAL_COMPANIONS } from '@/lib/mockData';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://aura-india.com';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://call-boy-4ef22.web.app';
 
   // Static core routes
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -23,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/cities`,
       lastModified: new Date(),
       changeFrequency: 'daily',
-      priority: 0.8,
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/how-it-works`,
@@ -35,13 +35,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/safety`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.7,
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/register-companion`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/contact`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/terms`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/privacy`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.5,
     },
   ];
 

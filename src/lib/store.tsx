@@ -112,7 +112,7 @@ interface PlatformStoreContextType {
 
 const PlatformStoreContext = createContext<PlatformStoreContextType | null>(null);
 
-const STORAGE_KEY = 'aura_platform_v2_store';
+const STORAGE_KEY = 'aura_platform_prod_v3_store';
 
 export function PlatformStoreProvider({ children }: { children: React.ReactNode }) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -129,8 +129,8 @@ export function PlatformStoreProvider({ children }: { children: React.ReactNode 
   const [bookingCredits, setBookingCredits] = useState<BookingCredit[]>(INITIAL_BOOKING_CREDITS);
   const [payouts, setPayouts] = useState<PayoutRecord[]>(INITIAL_PAYOUTS);
   const [auditLogs, setAuditLogs] = useState<AdminAuditLog[]>(INITIAL_AUDIT_LOGS);
-  const [favorites, setFavorites] = useState<string[]>(['comp-101', 'comp-103']);
-  const [recentlyViewed, setRecentlyViewed] = useState<string[]>(['comp-101', 'comp-102']);
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [recentlyViewed, setRecentlyViewed] = useState<string[]>([]);
   const [notifications, setNotifications] = useState<NotificationRecord[]>(INITIAL_NOTIFICATIONS);
   const [supportTickets, setSupportTickets] = useState<SupportTicket[]>(INITIAL_SUPPORT_TICKETS);
   const [conversations, setConversations] = useState<ChatConversation[]>(INITIAL_CONVERSATIONS);

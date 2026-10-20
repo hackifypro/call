@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://aura-india.com';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://call-boy-4ef22.web.app';
 
   return {
     rules: [

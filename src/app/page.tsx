@@ -103,6 +103,14 @@ export default function RootPage() {
       {/* Footer Legal & Safety Links */}
       <footer className="max-w-4xl w-full mx-auto py-6 text-center text-xs text-slate-500 space-y-2">
         <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-slate-400">
+          <Link href="/cities" className="hover:text-pink-400 transition">
+            Cities Directory
+          </Link>
+          <span>•</span>
+          <Link href="/how-it-works" className="hover:text-pink-400 transition">
+            How It Works
+          </Link>
+          <span>•</span>
           <Link href="/privacy" className="hover:text-pink-400 transition">
             Privacy Policy
           </Link>

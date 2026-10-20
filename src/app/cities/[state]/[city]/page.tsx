@@ -31,10 +31,51 @@ export async function generateStaticParams() {
   }));
 }
 
-export const metadata: Metadata = {
-  title: 'Verified Adult Companions in India | Elite Companions India',
-  description: 'Book ID-verified companions for social galas, fine dining, and cultural events with transparent 10% platform commission.',
-};
+export async function generateMetadata({ params }: CityPageProps): Promise<Metadata> {
+  const city = INDIAN_CITIES.find(
+    (c) => c.slug === params.city && c.stateSlug === params.state
+  );
+
+  if (!city) {
+    return {
+      title: 'City Directory | Aura India',
+    };
+  }
+
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://call-boy-4ef22.web.app';
+  const pageUrl = `${siteUrl}/cities/${params.state}/${params.city}`;
+
+  return {
+    title: `Verified Adult Companions in ${city.name}, ${city.stateName}`,
+    description: `Book 100% ID-verified adult companions and social escorts in ${city.name}, ${city.stateName}. Serving ${city.popularAreas.slice(0, 4).join(', ')}. Transparent 10% platform fee, discrete private bookings.`,
+    keywords: [
+      `${city.name} companions`,
+      `call boy ${city.name}`,
+      `male companions ${city.name}`,
+      `female companions ${city.name}`,
+      `escorts in ${city.name}`,
+      `verified companion service ${city.name}`,
+      `adult companionship ${city.stateName}`,
+      `${city.name} dinner date companion`,
+    ],
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `Verified Adult Companions in ${city.name}, ${city.stateName} | Aura India`,
+      description: `Explore trusted, ID-verified adult companions in ${city.name}. Available for dinner dates, social events, and private companionship.`,
+      url: pageUrl,
+      siteName: 'Aura India',
+      locale: 'en_IN',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `Verified Companions in ${city.name} | Aura India`,
+      description: `Book 100% ID-verified companions in ${city.name}, ${city.stateName}. Transparent pricing and complete privacy.`,
+    },
+  };
+}
 
 export default function CityLandingPage({ params }: CityPageProps) {
   const city = INDIAN_CITIES.find(
@@ -57,8 +98,8 @@ export default function CityLandingPage({ params }: CityPageProps) {
     name: `Companion Service in ${city.name}`,
     provider: {
       '@type': 'Organization',
-      name: 'Elite Companions India',
-      url: 'https://companion-marketplace.in',
+      name: 'Aura India',
+      url: process.env.NEXT_PUBLIC_APP_URL || 'https://call-boy-4ef22.web.app',
     },
     areaServed: {
       '@type': 'City',

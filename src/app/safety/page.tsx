@@ -1,6 +1,14 @@
 import React from 'react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { ShieldCheck, Lock, AlertTriangle, PhoneCall, CheckCircle2 } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Trust, Safety & Legal Verification Mandate',
+  description:
+    'Learn about Aura India’s strict 100% government ID verification, adult compliance (18+), zero-tolerance anti-exploitation policy, and personal safety standards.',
+  keywords: ['safety standards', 'verified companions', 'adult age verification 18+', 'anti-exploitation policy', 'aura india safety'],
+};
 
 export default function SafetyPage() {
   return (
